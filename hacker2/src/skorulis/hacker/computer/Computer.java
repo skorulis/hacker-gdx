@@ -21,7 +21,7 @@ public class Computer extends Actor implements Disposable {
 	}
 	
 	public void draw(Batch batch, float alpha) {
-		batch.draw(texture, def.location.x, def.location.y);
+		batch.draw(texture, def.location.x-texture.getWidth()/2, def.location.y-texture.getHeight()/2);
 	}
 	
 	public void dispose() {

@@ -26,8 +26,9 @@ public class DefManager {
 	
 	private void createLevels() {
 		LevelDef level = new LevelDef("l1");
-		level.computers.add(new ComputerPosDef(getComputer("c1"), 10, 10));
-		level.computers.add(new ComputerPosDef(getComputer("c1"), 100, 100));
+		level.computers.add(new ComputerPosDef("c1", getComputer("c1"), 50, 50));
+		level.computers.add(new ComputerPosDef("c2", getComputer("c1"), 300, 200));
+		level.createConnection("c1","c2");
 		levels.put(level.name, level);
 	}
 	
