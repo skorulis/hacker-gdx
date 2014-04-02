@@ -27,9 +27,7 @@ public class NetworkLevel extends Group {
 	
 	@Override
     public void draw (Batch batch, float parentAlpha) {
-		for(Computer comp: computers) {
-			comp.draw(batch, parentAlpha); //Not sure why this is required
-		}
+		drawChildren(batch, parentAlpha);
 	}
 	
 	
