@@ -24,7 +24,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 	private LevelDef def;
 	private ArrayList<Computer> computers;
 	private ArrayList<Avatar> avatars;
-	private Avatar playerAvater;
+	private Avatar playerAvatar;
 	private ShapeRenderer shapeRenderer;
 	private Vector3 translation;
 	
@@ -37,10 +37,10 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 		
 		buildLevel();
 		
-		playerAvater = new Avatar();
-		playerAvater.setLocation(def.entryComputer.location);
-		this.addActor(playerAvater);
-		avatars.add(playerAvater);
+		playerAvatar = new Avatar(findEntryComputer());
+		
+		this.addActor(playerAvatar);
+		avatars.add(playerAvatar);
 		
 		shapeRenderer = new ShapeRenderer();
 		this.setBounds(0, 0, 500, 500);
@@ -73,14 +73,13 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 		drawChildren(batch, parentAlpha);
 	}
 	
-	public boolean isTouchable() {
-		return true;
-	}
-	
-	public void dispose() {
-		for(Computer c : computers) {
-			c.dispose();
+	public Computer findEntryComputer() {
+		for(Computer c: computers) {
+			if(c.def.name().equals(def.entryComputer.name())) {
+				return c;
+			}
 		}
+		return null;
 	}
 
 	@Override
@@ -92,15 +91,14 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 	public boolean tap(float x, float y, int count, int button) {
 		x -= translation.x;
 		y += translation.y;
-		
 		y = this.getStage().getHeight() - y;
 		
 		System.out.println("tap " + x + "," + y);
 		for(Computer c: computers) {
-			System.out.println("x " + c.getX() + " " + c.getWidth());
-			System.out.println("y " + c.getY() + " " + c.getHeight());
 			if(c.hit(x, y, true) != null) {
-				System.out.println("Move");
+				if(c != playerAvatar.currentComputer) {
+					playerAvatar.travelTo(c);
+				}
 			}
 		}
 		return false;
@@ -143,6 +141,12 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 			Vector2 pointer1, Vector2 pointer2) {
 		System.out.println("pinch");
 		return false;
+	}
+	
+	public void dispose() {
+		for(Computer c : computers) {
+			c.dispose();
+		}
 	}
 	
 	

@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class Computer extends Actor implements Disposable {
 
-	private ComputerPosDef def;
+	public ComputerPosDef def;
 	private Texture texture;
 	
 	
