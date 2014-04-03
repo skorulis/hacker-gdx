@@ -37,7 +37,7 @@ public class HackerGame implements ApplicationListener {
 	}
 	
 	private void startLevel() {
-		level = new NetworkLevel(defManager.getLevel("l1"));
+		level = new NetworkLevel(defManager.getLevel("l1"),assets);
 		
 		GestureDetector gd = new GestureDetector(level);
 	    Gdx.input.setInputProcessor(gd);
@@ -80,5 +80,6 @@ public class HackerGame implements ApplicationListener {
 	@Override
 	public void dispose() {
 		stage.dispose();
+		assets.dispose();
 	}
 }

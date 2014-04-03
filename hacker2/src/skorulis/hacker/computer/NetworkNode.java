@@ -3,30 +3,27 @@ package skorulis.hacker.computer;
 import skorulis.hacker.def.NodePosDef;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
 
-public class NetworkNode extends Actor implements Disposable {
+public class NetworkNode extends Actor  {
 
 	public NodePosDef def;
 	private Texture texture;
 	
 	
-	public NetworkNode(NodePosDef def) {		
+	public NetworkNode(NodePosDef def,AssetManager assets) {		
 		this.def = def;
-		texture = new Texture(Gdx.files.internal(def.node.texture));
+		texture = assets.get(def.node.texture, Texture.class);
 		this.setPosition(def.location.x - texture.getWidth()/2, def.location.y - texture.getHeight()/2);
 		this.setSize(texture.getWidth(), texture.getHeight());
 	}
 	
 	public void draw(Batch batch, float alpha) {
 		batch.draw(texture, getX(), getY());
-	}
-
-	public void dispose() {
-		texture.dispose();
 	}
 	
 	public Actor hit(float x, float y, boolean touchable) {

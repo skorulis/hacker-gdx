@@ -2,6 +2,7 @@ package skorulis.hacker.level;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -28,9 +29,11 @@ public class NetworkLevel extends Group implements Disposable, GestureListener, 
 	private Avatar playerAvatar;
 	private ShapeRenderer shapeRenderer;
 	private Vector3 translation;
+	private AssetManager assets;
 	
-	public NetworkLevel(LevelDef def) {
+	public NetworkLevel(LevelDef def,AssetManager assets) {
 		this.def = def;
+		this.assets = assets;
 		
 		translation = new Vector3();
 		computers = new ArrayList<NetworkNode>();
@@ -49,7 +52,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener, 
 	
 	private void buildLevel() {
 		for(NodePosDef cd : this.def.computers) {
-			NetworkNode comp = new NetworkNode(cd);
+			NetworkNode comp = new NetworkNode(cd,assets);
 			this.addActor(comp);
 			computers.add(comp);
 		}
@@ -150,9 +153,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener, 
 	}
 	
 	public void dispose() {
-		for(NetworkNode c : computers) {
-			c.dispose();
-		}
+		
 	}
 
 	
