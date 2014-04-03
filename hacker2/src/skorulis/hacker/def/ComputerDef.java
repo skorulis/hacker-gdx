@@ -1,9 +1,18 @@
 package skorulis.hacker.def;
 
+import skorulis.hacker.def.square.ComputerSquareDef;
+
+
 public class ComputerDef extends BaseDef {
 	
-	public ComputerDef(String name) {
+	public int width,height;
+	public ComputerSquareDef[] squares;
+	
+	public ComputerDef(String name,int width, int height) {
 		super(name);
+		this.width = width;
+		this.height = height;
+		squares = new ComputerSquareDef[width*height];
 	}
 	
 }

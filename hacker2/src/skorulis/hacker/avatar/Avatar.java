@@ -1,6 +1,6 @@
 package skorulis.hacker.avatar;
 
-import skorulis.hacker.computer.Computer;
+import skorulis.hacker.computer.NetworkNode;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,15 +11,16 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class Avatar extends Actor {
 
 	private Texture texture;
-	public Computer currentComputer;
-	public Computer destinationComputer;
+	private AvatarDelegate delegate;
+	public NetworkNode currentComputer;
+	public NetworkNode destinationComputer;
 	
 	public float travelTime;
 	public float currentTime;
 	
-	public Avatar(Computer computer) {
+	public Avatar(NetworkNode computer,AvatarDelegate delegate) {
 		this.currentComputer = computer;
-		
+		this.delegate = delegate;
 		texture = new Texture(Gdx.files.internal("data/twitter-icon.png"));
 		this.setLocation(computer.def.location);
 	}
@@ -32,7 +33,7 @@ public class Avatar extends Actor {
 		this.setPosition(loc.x - texture.getWidth()/2, loc.y - texture.getHeight()/2);
 	}
 	
-	public void travelTo(Computer c) {
+	public void travelTo(NetworkNode c) {
 		destinationComputer = c;
 		travelTime = currentComputer.def.location.cpy().sub(destinationComputer.def.location).len();
 		travelTime /= 100;
@@ -49,6 +50,7 @@ public class Avatar extends Actor {
 			setLocation(v1.add(v2));
 			if(currentTime == travelTime) {
 				currentComputer = destinationComputer;
+				delegate.avatarDidReachNode(this,currentComputer);
 			}
 		}
 	}

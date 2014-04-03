@@ -14,15 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Disposable;
 
 import skorulis.hacker.avatar.Avatar;
-import skorulis.hacker.computer.Computer;
-import skorulis.hacker.def.ComputerPosDef;
+import skorulis.hacker.avatar.AvatarDelegate;
+import skorulis.hacker.computer.NetworkNode;
+import skorulis.hacker.def.NodePosDef;
 import skorulis.hacker.def.ConnectionDef;
 import skorulis.hacker.def.LevelDef;
 
-public class NetworkLevel extends Group implements Disposable, GestureListener {
+public class NetworkLevel extends Group implements Disposable, GestureListener, AvatarDelegate {
 
 	private LevelDef def;
-	private ArrayList<Computer> computers;
+	private ArrayList<NetworkNode> computers;
 	private ArrayList<Avatar> avatars;
 	private Avatar playerAvatar;
 	private ShapeRenderer shapeRenderer;
@@ -32,12 +33,12 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 		this.def = def;
 		
 		translation = new Vector3();
-		computers = new ArrayList<Computer>();
+		computers = new ArrayList<NetworkNode>();
 		avatars = new ArrayList<Avatar>();
 		
 		buildLevel();
 		
-		playerAvatar = new Avatar(findEntryComputer());
+		playerAvatar = new Avatar(findEntryComputer(),this);
 		
 		this.addActor(playerAvatar);
 		avatars.add(playerAvatar);
@@ -47,8 +48,8 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 	}
 	
 	private void buildLevel() {
-		for(ComputerPosDef cd : this.def.computers) {
-			Computer comp = new Computer(cd);
+		for(NodePosDef cd : this.def.computers) {
+			NetworkNode comp = new NetworkNode(cd);
 			this.addActor(comp);
 			computers.add(comp);
 		}
@@ -73,13 +74,18 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 		drawChildren(batch, parentAlpha);
 	}
 	
-	public Computer findEntryComputer() {
-		for(Computer c: computers) {
+	public NetworkNode findEntryComputer() {
+		for(NetworkNode c: computers) {
 			if(c.def.name().equals(def.entryComputer.name())) {
 				return c;
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public void avatarDidReachNode(Avatar avatar, NetworkNode node) {
+		
 	}
 
 	@Override
@@ -94,7 +100,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 		y = this.getStage().getHeight() - y;
 		
 		System.out.println("tap " + x + "," + y);
-		for(Computer c: computers) {
+		for(NetworkNode c: computers) {
 			if(c.hit(x, y, true) != null) {
 				if(c != playerAvatar.currentComputer) {
 					playerAvatar.travelTo(c);
@@ -144,10 +150,11 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 	}
 	
 	public void dispose() {
-		for(Computer c : computers) {
+		for(NetworkNode c : computers) {
 			c.dispose();
 		}
 	}
+
 	
 	
 }

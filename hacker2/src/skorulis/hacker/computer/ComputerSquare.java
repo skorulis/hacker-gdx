@@ -1,18 +1,15 @@
 package skorulis.hacker.computer;
 
-import java.util.ArrayList;
+import skorulis.hacker.def.square.ComputerSquareDef;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-import skorulis.hacker.def.ComputerDef;
+public class ComputerSquare extends Actor {
 
-public class Computer extends Actor {
-
-	public ComputerDef def;
-	public ArrayList<ComputerSquare> squares;
+	public ComputerSquareDef def;
 	
-	public Computer(ComputerDef def) {
+	public ComputerSquare(ComputerSquareDef def) {
 		this.def = def;
 	}
 	
