@@ -30,9 +30,9 @@ public class Computer extends Actor implements Disposable {
 	}
 	
 	public Actor hit(float x, float y, boolean touchable) {
-		//System.out.println("Bounds (" + this.getOriginX() + "," + this.getOriginY() + ") -> (" + this.getRight() + " , " + this.getTop() + ")");
+		//System.out.println("Bounds (" + this.getX() + "," + this.getY() + ") -> (" + this.getWidth() + " , " + this.getHeight() + ")");
 		//System.out.println("H (" + x + "," + y + ")");
-		if(x >= this.getOriginX() && x <= this.getOriginX() + this.getWidth() && y >= this.getOriginY() && y <= this.getOriginY() + this.getHeight()) {
+		if(x >= this.getX() && x <= this.getX() + this.getWidth() && y <= this.getY() && y >= this.getY() - this.getHeight()) {
 			//System.out.println("H (" + x + "," + y + ")");
 			//System.out.println("name " + this.def.name());
 			return this;

@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -22,7 +21,7 @@ import skorulis.hacker.def.ComputerPosDef;
 import skorulis.hacker.def.ConnectionDef;
 import skorulis.hacker.def.LevelDef;
 
-public class NetworkLevel extends Group implements Disposable, EventListener, GestureListener {
+public class NetworkLevel extends Group implements Disposable, GestureListener {
 
 	private LevelDef def;
 	private ArrayList<Computer> computers;
@@ -52,7 +51,6 @@ public class NetworkLevel extends Group implements Disposable, EventListener, Ge
 	private void buildLevel() {
 		for(ComputerPosDef cd : this.def.computers) {
 			Computer comp = new Computer(cd);
-			comp.addListener(this);
 			this.addActor(comp);
 			computers.add(comp);
 		}
@@ -103,6 +101,13 @@ public class NetworkLevel extends Group implements Disposable, EventListener, Ge
 		x -= translation.x;
 		y += translation.y;
 		System.out.println("tap " + x + "," + y);
+		for(Computer c: computers) {
+			System.out.println("x " + c.getX() + " " + c.getWidth());
+			System.out.println("y " + c.getY() + " " + c.getHeight());
+			if(c.hit(x, y, true) != null) {
+				System.out.println("Move");
+			}
+		}
 		return false;
 	}
 
@@ -120,7 +125,7 @@ public class NetworkLevel extends Group implements Disposable, EventListener, Ge
 
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		System.out.println("pan " + deltaX + "," + deltaY);
+		//System.out.println("pan " + deltaX + "," + deltaY);
 		translation.x += deltaX;
 		translation.y -= deltaY;
 		return false;
