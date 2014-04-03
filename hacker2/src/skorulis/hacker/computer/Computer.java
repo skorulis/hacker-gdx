@@ -7,24 +7,22 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
-import com.sun.xml.internal.bind.v2.runtime.Name;
 
 public class Computer extends Actor implements Disposable {
 
 	private ComputerPosDef def;
-	
 	private Texture texture;
 	
 	
-	public Computer(ComputerPosDef def) {
+	public Computer(ComputerPosDef def) {		
 		this.def = def;
 		texture = new Texture(Gdx.files.internal("data/workgroup.png"));
-		this.setOrigin(def.location.x - texture.getWidth()/2, def.location.y - texture.getHeight()/2);
+		this.setPosition(def.location.x - texture.getWidth()/2, def.location.y - texture.getHeight()/2);
 		this.setSize(texture.getWidth(), texture.getHeight());
 	}
 	
 	public void draw(Batch batch, float alpha) {
-		batch.draw(texture, def.location.x-texture.getWidth()/2, def.location.y-texture.getHeight()/2);
+		batch.draw(texture, getX(), getY());
 	}
 
 	public void dispose() {
