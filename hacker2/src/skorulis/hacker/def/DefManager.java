@@ -29,6 +29,7 @@ public class DefManager {
 		level.computers.add(new ComputerPosDef("c1", getComputer("c1"), 50, 50));
 		level.computers.add(new ComputerPosDef("c2", getComputer("c1"), 300, 200));
 		level.createConnection("c1","c2");
+		level.entryComputer = level.findComputer("c1");
 		levels.put(level.name, level);
 	}
 	

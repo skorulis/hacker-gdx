@@ -30,7 +30,6 @@ public class NetworkLevel extends Group implements Disposable, EventListener, Ge
 	private Avatar playerAvater;
 	private ShapeRenderer shapeRenderer;
 	private Vector3 translation;
-	private Vector2 touchStart;
 	
 	public NetworkLevel(LevelDef def) {
 		this.def = def;
@@ -42,6 +41,7 @@ public class NetworkLevel extends Group implements Disposable, EventListener, Ge
 		buildLevel();
 		
 		playerAvater = new Avatar();
+		playerAvater.setLocation(def.entryComputer.location);
 		this.addActor(playerAvater);
 		avatars.add(playerAvater);
 		
@@ -95,13 +95,14 @@ public class NetworkLevel extends Group implements Disposable, EventListener, Ge
 
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {
-		touchStart = new Vector2(x,y);
 		return false;
 	}
 
 	@Override
 	public boolean tap(float x, float y, int count, int button) {
-		System.out.println("tap");
+		x -= translation.x;
+		y += translation.y;
+		System.out.println("tap " + x + "," + y);
 		return false;
 	}
 
