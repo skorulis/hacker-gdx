@@ -10,8 +10,6 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -56,18 +54,13 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 		}
 	}
 	
-	public boolean handle(Event event) {
-		Actor actor = event.getListenerActor();
-		System.out.println("EVENT " + event + " " + actor);
-		return false;
-	}
-	
 	@Override
     public void draw (Batch batch, float parentAlpha) {
 		Matrix4 transform = new Matrix4();
 		transform.translate(translation);
 		batch.end();
 		shapeRenderer.setTransformMatrix(transform);
+		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.setColor(Color.RED);
 		for(ConnectionDef cd : def.connections) {
@@ -79,7 +72,6 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 		batch.setTransformMatrix(transform);
 		drawChildren(batch, parentAlpha);
 	}
-	
 	
 	public boolean isTouchable() {
 		return true;
@@ -100,6 +92,9 @@ public class NetworkLevel extends Group implements Disposable, GestureListener {
 	public boolean tap(float x, float y, int count, int button) {
 		x -= translation.x;
 		y += translation.y;
+		
+		y = this.getStage().getHeight() - y;
+		
 		System.out.println("tap " + x + "," + y);
 		for(Computer c: computers) {
 			System.out.println("x " + c.getX() + " " + c.getWidth());
