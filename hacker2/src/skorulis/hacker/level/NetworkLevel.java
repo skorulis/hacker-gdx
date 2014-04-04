@@ -21,7 +21,8 @@ import skorulis.hacker.def.NodePosDef;
 import skorulis.hacker.def.ConnectionDef;
 import skorulis.hacker.def.LevelDef;
 
-public class NetworkLevel extends Group implements Disposable, GestureListener, AvatarDelegate {
+public class NetworkLevel extends Group implements Disposable, GestureListener,
+		AvatarDelegate {
 
 	private LevelDef def;
 	private ArrayList<NetworkNode> computers;
@@ -30,36 +31,36 @@ public class NetworkLevel extends Group implements Disposable, GestureListener, 
 	private ShapeRenderer shapeRenderer;
 	private Vector3 translation;
 	private AssetManager assets;
-	
-	public NetworkLevel(LevelDef def,AssetManager assets) {
+
+	public NetworkLevel(LevelDef def, AssetManager assets) {
 		this.def = def;
 		this.assets = assets;
-		
+
 		translation = new Vector3();
 		computers = new ArrayList<NetworkNode>();
 		avatars = new ArrayList<Avatar>();
-		
+
 		buildLevel();
-		
-		playerAvatar = new Avatar(findEntryComputer(),this);
-		
+
+		playerAvatar = new Avatar(findEntryComputer(), this);
+
 		this.addActor(playerAvatar);
 		avatars.add(playerAvatar);
-		
+
 		shapeRenderer = new ShapeRenderer();
 		this.setBounds(0, 0, 500, 500);
 	}
-	
+
 	private void buildLevel() {
-		for(NodePosDef cd : this.def.computers) {
-			NetworkNode comp = new NetworkNode(cd,assets);
+		for (NodePosDef cd : this.def.computers) {
+			NetworkNode comp = new NetworkNode(cd, assets);
 			this.addActor(comp);
 			computers.add(comp);
 		}
 	}
-	
+
 	@Override
-    public void draw (Batch batch, float parentAlpha) {
+	public void draw(Batch batch, float parentAlpha) {
 		Matrix4 transform = new Matrix4();
 		transform.translate(translation);
 		batch.end();
@@ -67,28 +68,38 @@ public class NetworkLevel extends Group implements Disposable, GestureListener, 
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.setColor(Color.RED);
-		for(ConnectionDef cd : def.connections) {
+		for (ConnectionDef cd : def.connections) {
 			shapeRenderer.line(cd.comp1.location, cd.comp2.location);
 		}
 		shapeRenderer.end();
-		
+
 		batch.begin();
 		batch.setTransformMatrix(transform);
 		drawChildren(batch, parentAlpha);
 	}
-	
+
 	public NetworkNode findEntryComputer() {
-		for(NetworkNode c: computers) {
-			if(c.def.name().equals(def.entryComputer.name())) {
+		for (NetworkNode c : computers) {
+			if (c.def.name().equals(def.entryComputer.name())) {
 				return c;
 			}
 		}
 		return null;
 	}
-	
+
 	@Override
 	public void avatarDidReachNode(Avatar avatar, NetworkNode node) {
-		
+		if (avatar == playerAvatar) {
+			if(avatar.currentNode.def.computer != null) {
+				System.out.println("REACH");
+				openComputer(avatar.currentNode);
+			}
+			
+		}
+	}
+	
+	private void openComputer(NetworkNode node) {
+		this.addActor(node.computer);
 	}
 
 	@Override
@@ -101,11 +112,11 @@ public class NetworkLevel extends Group implements Disposable, GestureListener, 
 		x -= translation.x;
 		y += translation.y;
 		y = this.getStage().getHeight() - y;
-		
+
 		System.out.println("tap " + x + "," + y);
-		for(NetworkNode c: computers) {
-			if(c.hit(x, y, true) != null) {
-				if(c != playerAvatar.currentComputer) {
+		for (NetworkNode c : computers) {
+			if (c.hit(x, y, true) != null) {
+				if (c != playerAvatar.currentNode) {
 					playerAvatar.travelTo(c);
 				}
 			}
@@ -127,7 +138,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener, 
 
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		//System.out.println("pan " + deltaX + "," + deltaY);
+		// System.out.println("pan " + deltaX + "," + deltaY);
 		translation.x += deltaX;
 		translation.y -= deltaY;
 		return false;
@@ -151,11 +162,9 @@ public class NetworkLevel extends Group implements Disposable, GestureListener, 
 		System.out.println("pinch");
 		return false;
 	}
-	
+
 	public void dispose() {
-		
+
 	}
 
-	
-	
 }

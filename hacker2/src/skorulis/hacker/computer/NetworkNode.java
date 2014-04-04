@@ -13,13 +13,17 @@ public class NetworkNode extends Actor  {
 
 	public NodePosDef def;
 	private Texture texture;
-	
+	public Computer computer;
 	
 	public NetworkNode(NodePosDef def,AssetManager assets) {		
 		this.def = def;
 		texture = assets.get(def.node.texture, Texture.class);
 		this.setPosition(def.location.x - texture.getWidth()/2, def.location.y - texture.getHeight()/2);
 		this.setSize(texture.getWidth(), texture.getHeight());
+		
+		if(def.computer != null) {
+			this.computer = new Computer(def.computer,assets);
+		}
 	}
 	
 	public void draw(Batch batch, float alpha) {

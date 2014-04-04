@@ -31,7 +31,11 @@ public class DefManager {
 	
 	private void createSquares() {
 		ComputerSquareDef csd = new ComputerSquareDef("wall");
+		csd.textureName = "data/wall.png";
+		squares.put(csd.name(), csd);
 		
+		csd = new ComputerSquareDef("floor");
+		csd.textureName = "data/floor.png";
 		squares.put(csd.name(), csd);
 	}
 	
@@ -43,7 +47,7 @@ public class DefManager {
 	
 	private void createComputers() {
 		ComputerDef cd = new ComputerDef("comp1", 5, 5);
-		
+		cd.fillWith(getSquare("floor"));
 		computers.put(cd.name(), cd);
 		
 	}
@@ -95,6 +99,9 @@ public class DefManager {
 		HashSet<String> set = new HashSet<String>();
 		for(NodeDef nd : this.nodes.values()) {
 			set.add(nd.texture);
+		}
+		for(ComputerSquareDef csd : this.squares.values()) {
+			set.add(csd.textureName);
 		}
 		
 		return new ArrayList<String>(set);

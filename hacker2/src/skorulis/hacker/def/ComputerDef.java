@@ -15,4 +15,10 @@ public class ComputerDef extends BaseDef {
 		squares = new ComputerSquareDef[width*height];
 	}
 	
+	public void fillWith(ComputerSquareDef square) {
+		for(int i = 0; i < squares.length; ++i) {
+			squares[i] = square;
+		}
+	}
+	
 }

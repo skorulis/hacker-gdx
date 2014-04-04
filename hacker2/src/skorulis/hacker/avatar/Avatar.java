@@ -12,14 +12,16 @@ public class Avatar extends Actor {
 
 	private Texture texture;
 	private AvatarDelegate delegate;
-	public NetworkNode currentComputer;
-	public NetworkNode destinationComputer;
+	public NetworkNode currentNode;
+	public NetworkNode destinationNode;
 	
 	public float travelTime;
 	public float currentTime;
 	
+	public float speed = 200;
+	
 	public Avatar(NetworkNode computer,AvatarDelegate delegate) {
-		this.currentComputer = computer;
+		this.currentNode = computer;
 		this.delegate = delegate;
 		texture = new Texture(Gdx.files.internal("data/twitter-icon.png"));
 		this.setLocation(computer.def.location);
@@ -34,23 +36,24 @@ public class Avatar extends Actor {
 	}
 	
 	public void travelTo(NetworkNode c) {
-		destinationComputer = c;
-		travelTime = currentComputer.def.location.cpy().sub(destinationComputer.def.location).len();
-		travelTime /= 100;
+		destinationNode = c;
+		travelTime = currentNode.def.location.cpy().sub(destinationNode.def.location).len();
+		travelTime /= speed;
 		currentTime = 0;
 	}
 	
 	public void act(float delta) {
-		if(destinationComputer != null) {
+		if(destinationNode != null) {
 			currentTime += delta;
 			currentTime = Math.min(currentTime, travelTime);
 			float pct = currentTime / travelTime;
-			Vector2 v1 = currentComputer.def.location.cpy().scl(1-pct);
-			Vector2 v2 = destinationComputer.def.location.cpy().scl(pct);
+			Vector2 v1 = currentNode.def.location.cpy().scl(1-pct);
+			Vector2 v2 = destinationNode.def.location.cpy().scl(pct);
 			setLocation(v1.add(v2));
 			if(currentTime == travelTime) {
-				currentComputer = destinationComputer;
-				delegate.avatarDidReachNode(this,currentComputer);
+				currentNode = destinationNode;
+				destinationNode = null;
+				delegate.avatarDidReachNode(this,currentNode);
 			}
 		}
 	}
