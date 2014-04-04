@@ -11,6 +11,8 @@ import skorulis.hacker.def.ComputerDef;
 
 public class Computer extends Group {
 
+	private static int SQUARE_SIZE = 64;
+	
 	public ComputerDef def;
 	public ComputerSquare squares[];
 	
@@ -20,15 +22,17 @@ public class Computer extends Group {
 		squares = new ComputerSquare[def.squares.length];
 		for(int i = 0; i < def.squares.length; ++i) { 
 			squares[i] = new ComputerSquare(def.squares[i],assets);
+			int x = i % def.width;
+			int y = i / def.width;
+			squares[i].setPosition(x*SQUARE_SIZE, y*SQUARE_SIZE);
 			this.addActor(squares[i]);
 		}
 	}
 	
-	/*public void draw(Batch batch, float alpha) {
-		for(ComputerSquare s : squares) {
-			
-		}
+	public void draw(Batch batch, float alpha) {
 		//batch.draw(texture, getX(), getY());
-	}*/
+		
+		drawChildren(batch, alpha);
+	}
 	
 }

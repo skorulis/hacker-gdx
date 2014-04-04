@@ -21,4 +21,10 @@ public class ComputerDef extends BaseDef {
 		}
 	}
 	
+	public void makeXWall(ComputerSquareDef square, int x1, int x2, int y) {
+		for(int i = x1; i <= x2; ++i) {
+			squares[y*width + i] = square;
+		}
+	}
+	
 }
