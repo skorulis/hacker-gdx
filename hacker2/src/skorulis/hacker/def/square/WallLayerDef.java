@@ -3,7 +3,6 @@ package skorulis.hacker.def.square;
 public class WallLayerDef extends TerrainLayerDef {
 
 	public String textureHorizontal;
-	public String textureVertical;
 	public String textureCornerNW;
 	public String textureCornerNE;
 	public String textureCornerSW;
@@ -27,7 +26,7 @@ public class WallLayerDef extends TerrainLayerDef {
 		bitMask += hasWest ? 8 : 0;
 		
 		if(bitMask == 5)  { //0101
-			return new CompSquareTexture(textureVertical);
+			return new CompSquareTexture(textureHorizontal,90);
 		} else if(bitMask == 10) { //1010
 			return new CompSquareTexture(textureHorizontal);
 		} else if(bitMask == 15) { //1111
@@ -47,7 +46,7 @@ public class WallLayerDef extends TerrainLayerDef {
 	}
 	
 	public String[] allTextures() {
-		return new String[] {textureMain, textureHorizontal, textureVertical, textureCornerNE, textureCornerNW, textureCornerSE, textureCornerSW };
+		return new String[] {textureMain, textureHorizontal, textureCornerNE, textureCornerNW, textureCornerSE, textureCornerSW };
 	}
 
 }

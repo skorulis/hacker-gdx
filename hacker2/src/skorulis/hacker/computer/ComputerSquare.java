@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class ComputerSquare extends Actor {
 
+	public static int SQUARE_SIZE = 32;
 	public CompSquareDef def;
 	private TextureRegion[] textures;
 	
@@ -24,7 +25,7 @@ public class ComputerSquare extends Actor {
 	
 	public void draw(Batch batch, float alpha) {
 		for(int i = 0; i < textures.length; ++i) {
-			batch.draw(textures[i], getX(), getY(),0,0,32,32,1,1,def.textures.get(i).rotation);
+			batch.draw(textures[i], getX(), getY(),SQUARE_SIZE/2,SQUARE_SIZE/2,SQUARE_SIZE,SQUARE_SIZE,1,1,def.textures.get(i).rotation);
 		}
 	}
 	

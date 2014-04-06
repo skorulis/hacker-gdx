@@ -35,7 +35,6 @@ public class DefManager {
 		WallLayerDef wallDef = new WallLayerDef("wall");
 		wallDef.textureMain = "data/wall_mid.png";
 		wallDef.textureHorizontal = "data/wall_horizontal.png";
-		wallDef.textureVertical = "data/wall_vertical.png";
 		wallDef.textureCornerNE = "data/wall_corner_ne.png";
 		wallDef.textureCornerNW = "data/wall_corner_nw.png";
 		wallDef.textureCornerSE = "data/wall_corner_se.png";
