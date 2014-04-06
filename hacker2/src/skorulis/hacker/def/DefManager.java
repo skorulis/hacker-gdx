@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import skorulis.hacker.def.square.ComputerSquareDef;
+import skorulis.hacker.def.square.TerrainLayerDef;
 
 
 public class DefManager {
@@ -14,13 +14,13 @@ public class DefManager {
 	public Map<String, NodeDef> nodes;
 	public Map<String, LevelDef> levels;
 	public Map<String, ComputerDef> computers; 
-	public Map<String, ComputerSquareDef> squares;
+	public Map<String, TerrainLayerDef> squares;
 	
 	public DefManager() {
 		nodes = new HashMap<String, NodeDef>();
 		levels = new HashMap<String, LevelDef>();
 		computers = new HashMap<String, ComputerDef>();
-		squares = new HashMap<String, ComputerSquareDef>();
+		squares = new HashMap<String, TerrainLayerDef>();
 	
 		createSquares();
 		createNodes();
@@ -30,12 +30,12 @@ public class DefManager {
 	}
 	
 	private void createSquares() {
-		ComputerSquareDef csd = new ComputerSquareDef("wall");
-		csd.textureName = "data/wall.png";
+		TerrainLayerDef csd = new TerrainLayerDef("wall");
+		csd.mainTexture = "data/wall.png";
 		squares.put(csd.name(), csd);
 		
-		csd = new ComputerSquareDef("floor");
-		csd.textureName = "data/floor.png";
+		csd = new TerrainLayerDef("floor");
+		csd.mainTexture = "data/floor.png";
 		squares.put(csd.name(), csd);
 	}
 	
@@ -88,8 +88,8 @@ public class DefManager {
 		return def;
 	}
 	
-	public ComputerSquareDef getSquare(String name) {
-		ComputerSquareDef def = squares.get(name);
+	public TerrainLayerDef getSquare(String name) {
+		TerrainLayerDef def = squares.get(name);
 		if(def == null) {
 			throw new IllegalArgumentException("No square named " + name);
 		}
@@ -101,8 +101,8 @@ public class DefManager {
 		for(NodeDef nd : this.nodes.values()) {
 			set.add(nd.texture);
 		}
-		for(ComputerSquareDef csd : this.squares.values()) {
-			set.add(csd.textureName);
+		for(TerrainLayerDef csd : this.squares.values()) {
+			set.add(csd.mainTexture);
 		}
 		
 		return new ArrayList<String>(set);

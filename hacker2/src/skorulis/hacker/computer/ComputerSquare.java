@@ -1,6 +1,7 @@
 package skorulis.hacker.computer;
 
-import skorulis.hacker.def.square.ComputerSquareDef;
+import skorulis.hacker.def.square.CompSquareDef;
+import skorulis.hacker.def.square.TerrainLayerDef;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,16 +10,22 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class ComputerSquare extends Actor {
 
-	public ComputerSquareDef def;
-	private Texture texture;
+	public CompSquareDef def;
+	private Texture[] textures;
 	
-	public ComputerSquare(ComputerSquareDef def,AssetManager assets) {
+	public ComputerSquare(CompSquareDef def,AssetManager assets) {
 		this.def = def;
-		texture = assets.get(def.textureName);
+		textures = new Texture[def.layers.size()];
+		for(int i = 0 ; i < textures.length; ++i) {
+			textures[i] = assets.get(def.layers.get(i).mainTexture);
+		}
 	}
 	
 	public void draw(Batch batch, float alpha) {
-		batch.draw(texture, getX(), getY());
+		for(Texture t : textures) {
+			batch.draw(t, getX(), getY());
+		}
+		
 	}
 	
 }
