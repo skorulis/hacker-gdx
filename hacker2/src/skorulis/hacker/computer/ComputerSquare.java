@@ -16,7 +16,7 @@ public class ComputerSquare extends Actor {
 		this.def = def;
 		textures = new Texture[def.layers.size()];
 		for(int i = 0 ; i < textures.length; ++i) {
-			textures[i] = assets.get(def.textures.get(i));
+			textures[i] = assets.get(def.textures.get(i).textureName);
 		}
 	}
 	

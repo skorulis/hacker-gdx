@@ -11,8 +11,8 @@ public class TerrainLayerDef extends BaseDef {
 		super(name);
 	}
 	
-	public String calculateTexture(CompSquareDef north, CompSquareDef east, CompSquareDef south, CompSquareDef west) {
-		return textureMain;
+	public CompSquareTexture calculateTexture(CompSquareDef north, CompSquareDef east, CompSquareDef south, CompSquareDef west) {
+		return new CompSquareTexture(textureMain);
 	}
 	
 	public String[] allTextures() {

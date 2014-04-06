@@ -16,7 +16,7 @@ public class WallLayerDef extends TerrainLayerDef {
 		super(name);
 	}
 	
-	public String calculateTexture(CompSquareDef north, CompSquareDef east, CompSquareDef south, CompSquareDef west) {
+	public CompSquareTexture calculateTexture(CompSquareDef north, CompSquareDef east, CompSquareDef south, CompSquareDef west) {
 		boolean hasNorth = north != null && north.hasLayer(name);
 		boolean hasSouth = south != null && south.hasLayer(name);
 		boolean hasEast = east != null && east.hasLayer(name);
@@ -29,23 +29,23 @@ public class WallLayerDef extends TerrainLayerDef {
 		bitMask += hasWest ? 8 : 0;
 		
 		if(bitMask == 5)  { //0101
-			return textureVertical;
+			return new CompSquareTexture(textureVertical);
 		} else if(bitMask == 10) { //1010
-			return textureHorizontal;
+			return new CompSquareTexture(textureHorizontal);
 		} else if(bitMask == 15) { //1111
-			return textureMain;
+			return new CompSquareTexture(textureMain);
 		} else if(bitMask == 12) { //1100
-			return textureCornerNE;
+			return new CompSquareTexture(textureCornerNE);
 		} else if(bitMask == 6) { //0110
-			return textureCornerNW;
+			return new CompSquareTexture(textureCornerNW);
 		} else if(bitMask == 9) { //1001
-			return textureCornerSE;
+			return new CompSquareTexture(textureCornerSE);
 		} else if(bitMask == 3) { //0011
-			return textureCornerSW;
+			return new CompSquareTexture(textureCornerSW);
 		} 
 		
 		
-		return textureMain;
+		return new CompSquareTexture(textureMain);
 	}
 	
 	public String[] allTextures() {
