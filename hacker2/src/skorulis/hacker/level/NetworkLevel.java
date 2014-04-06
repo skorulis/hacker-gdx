@@ -42,8 +42,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 
 		buildLevel();
 
-		shapeRenderer = new ShapeRenderer();
-		this.setBounds(0, 0, 500, 500);		
+		shapeRenderer = new ShapeRenderer();		
 	}
 	
 	public void start() {

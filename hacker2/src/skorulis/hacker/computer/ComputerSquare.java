@@ -1,7 +1,6 @@
 package skorulis.hacker.computer;
 
 import skorulis.hacker.def.square.CompSquareDef;
-import skorulis.hacker.def.square.TerrainLayerDef;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,7 +16,7 @@ public class ComputerSquare extends Actor {
 		this.def = def;
 		textures = new Texture[def.layers.size()];
 		for(int i = 0 ; i < textures.length; ++i) {
-			textures[i] = assets.get(def.layers.get(i).mainTexture);
+			textures[i] = assets.get(def.textures.get(i));
 		}
 	}
 	

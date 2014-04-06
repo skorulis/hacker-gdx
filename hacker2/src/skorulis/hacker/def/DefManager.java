@@ -49,6 +49,7 @@ public class DefManager {
 		ComputerDef cd = new ComputerDef("comp1", 5, 5);
 		cd.fillWith(getSquare("floor"));
 		cd.makeXWall(getSquare("wall"), 0, 4, 0);
+		cd.assignTextures();
 		computers.put(cd.name(), cd);
 		
 	}
