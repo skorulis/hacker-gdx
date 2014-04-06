@@ -63,8 +63,20 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 			computers.add(comp);
 		}
 		for(ConnectionDef cd : this.def.connections) {
-			connections.add(new NetworkConnection(cd));
+			NetworkConnection connection = new NetworkConnection(cd);
+			connection.node1 = findNode(cd.comp1.name());
+			connection.node2 = findNode(cd.comp2.name());
+			connections.add(connection);
 		}
+	}
+	
+	public NetworkNode findNode(String name) {
+		for(NetworkNode node : computers) {
+			if(node.def.name().equals(name)) {
+				return node;
+			}
+		}
+		throw new IllegalArgumentException("Could not find node " + name);
 	}
 
 	@Override
