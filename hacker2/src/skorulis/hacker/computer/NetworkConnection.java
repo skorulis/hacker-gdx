@@ -25,4 +25,14 @@ public class NetworkConnection {
 		throw new IllegalArgumentException("Connection does not have node " + node);
 	}
 	
+	public String squareIdForNode(NetworkNode node) {
+		if(node == node1) {
+			return def.squareId1;
+		} else {
+			return def.squareId2;
+		}
+	}
+	
+	
+	
 }

@@ -2,8 +2,6 @@ package skorulis.hacker.avatar;
 
 import skorulis.hacker.computer.NetworkConnection;
 import skorulis.hacker.computer.NetworkNode;
-import skorulis.hacker.def.ConnectionDef;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -61,7 +59,8 @@ public class Avatar extends Actor {
 			if(currentTime == travelTime) {
 				currentNode = destinationNode;
 				destinationNode = null;
-				delegate.avatarDidReachNode(this,currentNode);
+				delegate.avatarDidReachNode(this,currentNode,currentConnection);
+				currentConnection = null;
 			}
 		}
 	}

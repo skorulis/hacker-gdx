@@ -16,6 +16,8 @@ import com.badlogic.gdx.utils.Disposable;
 
 import skorulis.hacker.avatar.Avatar;
 import skorulis.hacker.avatar.AvatarDelegate;
+import skorulis.hacker.computer.Computer;
+import skorulis.hacker.computer.ComputerSquare;
 import skorulis.hacker.computer.NetworkConnection;
 import skorulis.hacker.computer.NetworkNode;
 import skorulis.hacker.def.NodePosDef;
@@ -33,7 +35,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 	private ShapeRenderer shapeRenderer;
 	private Vector3 translation;
 	private AssetManager assets;
-	
+	private Computer openComputer;
 
 	public NetworkLevel(LevelDef def, AssetManager assets) {
 		this.def = def;
@@ -53,7 +55,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 		playerAvatar = new Avatar(findEntryComputer(), this);
 		this.addActor(playerAvatar);
 		avatars.add(playerAvatar);
-		avatarDidReachNode(playerAvatar, playerAvatar.currentNode);
+		avatarDidReachNode(playerAvatar, playerAvatar.currentNode,null);
 	}
 
 	private void buildLevel() {
@@ -108,10 +110,17 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 	}
 
 	@Override
-	public void avatarDidReachNode(Avatar avatar, NetworkNode node) {
+	public void avatarDidReachNode(Avatar avatar, NetworkNode node, NetworkConnection connection) {
 		if (avatar == playerAvatar) {
-			if(avatar.currentNode.def.computer != null) {
+			if(node.computer != null) {
 				System.out.println("REACH");
+				
+				String squareId = connection.squareIdForNode(node);
+				ComputerSquare cs = node.computer.findSquare(squareId);
+				
+				this.removeActor(avatar);
+				avatar.currentNode.computer.addActor(avatar);
+				avatar.setPosition(cs.getX(), cs.getY());
 				openComputer(avatar.currentNode);
 			}
 			
@@ -119,6 +128,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 	}
 	
 	private void openComputer(NetworkNode node) {
+		this.openComputer = node.computer;
 		this.addActor(node.computer);
 	}
 
@@ -132,7 +142,11 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 		x -= translation.x;
 		y += translation.y;
 		y = this.getStage().getHeight() - y;
-
+		if(openComputer != null) {
+			openComputer.handleTap(x,y);
+			return false;
+		}
+		
 		for (NetworkNode n : computers) {
 			if (n.hit(x, y, true) != null) {
 				if (n != playerAvatar.currentNode) {

@@ -16,7 +16,7 @@ public class LevelDef extends BaseDef {
 		connections = new ArrayList<ConnectionDef>();
 	}
 	
-	public void createConnection(NodePosDef comp1, NodePosDef comp2,CompSquareDef square1, CompSquareDef square2) {
+	public void createConnection(NodePosDef comp1, NodePosDef comp2,String square1, String square2) {
 		ConnectionDef cd = new ConnectionDef(comp1, comp2, square1, square2);
 		this.connections.add(cd);
 	}
