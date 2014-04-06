@@ -4,7 +4,6 @@ import skorulis.hacker.def.square.CompSquareDef;
 import skorulis.hacker.def.square.CompSquareLayer;
 import skorulis.hacker.def.square.TerrainLayerDef;
 
-
 public class ComputerDef extends BaseDef {
 	
 	public int width,height;
@@ -59,6 +58,19 @@ public class ComputerDef extends BaseDef {
 				square.assignTextures(north, east, south, west);
 			}
 		}
+	}
+	
+	public CompSquareDef findSquare(String id) {
+		for(int i = 0; i < height; ++i) {
+			for(int j = 0; j < width; ++j) {
+				for(CompSquareLayer layer : squares[i][j].layers) {
+					if(id.equals(layer.id)) {
+						return squares[i][j];
+					}
+				}
+			}
+		}
+		return null;
 	}
 	
 }

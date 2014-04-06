@@ -1,5 +1,7 @@
 package skorulis.hacker.def;
 
+import skorulis.hacker.def.square.CompSquareDef;
+
 import com.badlogic.gdx.math.Vector2;
 
 public class NodePosDef extends BaseDef {
@@ -17,6 +19,13 @@ public class NodePosDef extends BaseDef {
 	public NodePosDef(String name, NodeDef node, ComputerDef comp, int x, int y) {
 		this(name,node,x,y);
 		this.computer = comp;
+	}
+	
+	public CompSquareDef findSquare(String id) {
+		if(computer == null) {
+			return null;
+		}
+		return computer.findSquare(id);
 	}
 	
 }

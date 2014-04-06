@@ -2,6 +2,8 @@ package skorulis.hacker.def;
 
 import java.util.ArrayList;
 
+import skorulis.hacker.def.square.CompSquareDef;
+
 public class LevelDef extends BaseDef {
 
 	public ArrayList<NodePosDef> computers;
@@ -14,11 +16,8 @@ public class LevelDef extends BaseDef {
 		connections = new ArrayList<ConnectionDef>();
 	}
 	
-	public void createConnection(String comp1, String comp2) {
-		NodePosDef cpd1 = findComputer(comp1);
-		NodePosDef cpd2 = findComputer(comp2);
-		
-		ConnectionDef cd = new ConnectionDef(cpd1, cpd2);
+	public void createConnection(NodePosDef comp1, NodePosDef comp2,CompSquareDef square1, CompSquareDef square2) {
+		ConnectionDef cd = new ConnectionDef(comp1, comp2, square1, square2);
 		this.connections.add(cd);
 	}
 	
