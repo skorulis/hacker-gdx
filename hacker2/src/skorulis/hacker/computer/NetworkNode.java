@@ -2,12 +2,10 @@ package skorulis.hacker.computer;
 
 import skorulis.hacker.def.NodePosDef;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Disposable;
 
 public class NetworkNode extends Actor  {
 

@@ -23,8 +23,17 @@ public class CompSquareDef {
 	public void assignTextures(CompSquareDef north,CompSquareDef east, CompSquareDef south, CompSquareDef west) {
 		textures.clear();
 		for(TerrainLayerDef def : layers) {
-			textures.add(def.mainTexture);
+			textures.add(def.calculateTexture(north,east,south,west));
 		}
+	}
+	
+	public boolean hasLayer(String name) {
+		for(TerrainLayerDef tld : layers) {
+			if(tld.name().equals(name)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

@@ -1,12 +1,14 @@
 package skorulis.hacker.def;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import skorulis.hacker.def.square.TerrainLayerDef;
+import skorulis.hacker.def.square.WallLayerDef;
 
 
 public class DefManager {
@@ -30,12 +32,18 @@ public class DefManager {
 	}
 	
 	private void createSquares() {
-		TerrainLayerDef csd = new TerrainLayerDef("wall");
-		csd.mainTexture = "data/wall.png";
-		squares.put(csd.name(), csd);
+		WallLayerDef wallDef = new WallLayerDef("wall");
+		wallDef.textureMain = "data/wall_mid.png";
+		wallDef.textureHorizontal = "data/wall_horizontal.png";
+		wallDef.textureVertical = "data/wall_vertical.png";
+		wallDef.textureCornerNE = "data/wall_corner_ne.png";
+		wallDef.textureCornerNW = "data/wall_corner_nw.png";
+		wallDef.textureCornerSE = "data/wall_corner_se.png";
+		wallDef.textureCornerSW = "data/wall_corner_sw.png";
+		squares.put(wallDef.name(), wallDef);
 		
-		csd = new TerrainLayerDef("floor");
-		csd.mainTexture = "data/floor.png";
+		TerrainLayerDef csd = new TerrainLayerDef("floor");
+		csd.textureMain = "data/floor.png";
 		squares.put(csd.name(), csd);
 	}
 	
@@ -103,7 +111,7 @@ public class DefManager {
 			set.add(nd.texture);
 		}
 		for(TerrainLayerDef csd : this.squares.values()) {
-			set.add(csd.mainTexture);
+			set.addAll(Arrays.asList(csd.allTextures()));
 		}
 		
 		return new ArrayList<String>(set);
