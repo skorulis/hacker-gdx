@@ -1,7 +1,5 @@
 package skorulis.hacker.def.square;
 
-import java.util.ArrayList;
-
 public class WallLayerDef extends TerrainLayerDef {
 
 	public String textureHorizontal;

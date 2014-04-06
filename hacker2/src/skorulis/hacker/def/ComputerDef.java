@@ -35,6 +35,12 @@ public class ComputerDef extends BaseDef {
 		}
 	}
 	
+	public void makeYWall(TerrainLayerDef layer, int y1, int y2, int x) {
+		for(int i = y1; i <= y2; ++i) {
+			squares[i][x].addLayer(layer);
+		}
+	}
+	
 	public void assignTextures() {
 		CompSquareDef square;
 		CompSquareDef north,south,east, west;
