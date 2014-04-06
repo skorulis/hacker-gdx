@@ -1,5 +1,6 @@
 package skorulis.hacker.avatar;
 
+import skorulis.hacker.computer.NetworkConnection;
 import skorulis.hacker.computer.NetworkNode;
 import skorulis.hacker.def.ConnectionDef;
 
@@ -14,7 +15,7 @@ public class Avatar extends Actor {
 	private Texture texture;
 	private AvatarDelegate delegate;
 	public NetworkNode currentNode;
-	public ConnectionDef currentConnection;
+	public NetworkConnection currentConnection;
 	public NetworkNode destinationNode;
 	
 	public float travelTime;
@@ -42,6 +43,11 @@ public class Avatar extends Actor {
 		travelTime = currentNode.def.location.cpy().sub(destinationNode.def.location).len();
 		travelTime /= speed;
 		currentTime = 0;
+	}
+	
+	public void travelAlong(NetworkConnection connection) {
+		currentConnection = connection;
+		travelTo(connection.otherNode(currentNode));
 	}
 	
 	public void act(float delta) {

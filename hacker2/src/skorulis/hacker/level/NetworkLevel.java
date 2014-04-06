@@ -133,14 +133,26 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 		y += translation.y;
 		y = this.getStage().getHeight() - y;
 
-		for (NetworkNode c : computers) {
-			if (c.hit(x, y, true) != null) {
-				if (c != playerAvatar.currentNode) {
-					playerAvatar.travelTo(c);
+		for (NetworkNode n : computers) {
+			if (n.hit(x, y, true) != null) {
+				if (n != playerAvatar.currentNode) {
+					NetworkConnection connection = findConnection(playerAvatar.currentNode, n);
+					if(connection != null) {
+						playerAvatar.travelAlong(connection);
+					}
 				}
 			}
 		}
 		return false;
+	}
+	
+	public NetworkConnection findConnection(NetworkNode node1, NetworkNode node2) {
+		for(NetworkConnection con : connections) {
+			if(con.hasNodes(node1, node2)) {
+				return con;
+			}
+		}
+		return null;
 	}
 
 	@Override
