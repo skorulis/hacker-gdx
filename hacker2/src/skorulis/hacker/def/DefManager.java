@@ -36,9 +36,6 @@ public class DefManager {
 		wallDef.textureMain = "data/wall_mid.png";
 		wallDef.textureHorizontal = "data/wall_horizontal.png";
 		wallDef.textureCornerNE = "data/wall_corner_ne.png";
-		wallDef.textureCornerNW = "data/wall_corner_nw.png";
-		wallDef.textureCornerSE = "data/wall_corner_se.png";
-		wallDef.textureCornerSW = "data/wall_corner_sw.png";
 		squares.put(wallDef.name(), wallDef);
 		
 		TerrainLayerDef csd = new TerrainLayerDef("floor");
