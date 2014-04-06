@@ -143,7 +143,8 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 		y += translation.y;
 		y = this.getStage().getHeight() - y;
 		if(openComputer != null) {
-			openComputer.handleTap(x,y);
+			ComputerSquare cs = openComputer.squareAtLocation(x,y);
+			playerAvatar.setPosition(cs.getX(), cs.getY());
 			return false;
 		}
 		

@@ -33,20 +33,12 @@ public class Computer extends Group {
 		drawChildren(batch, alpha);
 	}
 	
-	public void handleTap(float x, float y) {
-		ComputerSquare cs = squareAtLocation(x, y);
-		if(cs != null) {
-			System.out.println("SQUARE");
-			
-		}
-	}
-	
 	public ComputerSquare squareAtLocation(float xPos, float yPos) {
 		if(xPos < 0 || yPos < 0) {
 			return null;
 		}
 		int x = (int) (xPos / ComputerSquare.SQUARE_SIZE);
-		int y = (int) (xPos / ComputerSquare.SQUARE_SIZE);
+		int y = (int) (yPos / ComputerSquare.SQUARE_SIZE);
 		if(x >= def.width || y >= def.height) {
 			return null;
 		}
