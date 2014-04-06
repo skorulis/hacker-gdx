@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 import skorulis.hacker.avatar.Avatar;
 import skorulis.hacker.avatar.AvatarDelegate;
+import skorulis.hacker.computer.NetworkConnection;
 import skorulis.hacker.computer.NetworkNode;
 import skorulis.hacker.def.NodePosDef;
 import skorulis.hacker.def.ConnectionDef;
@@ -27,10 +28,12 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 	private LevelDef def;
 	private ArrayList<NetworkNode> computers;
 	private ArrayList<Avatar> avatars;
+	private ArrayList<NetworkConnection> connections;
 	private Avatar playerAvatar;
 	private ShapeRenderer shapeRenderer;
 	private Vector3 translation;
 	private AssetManager assets;
+	
 
 	public NetworkLevel(LevelDef def, AssetManager assets) {
 		this.def = def;
@@ -39,6 +42,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 		translation = new Vector3();
 		computers = new ArrayList<NetworkNode>();
 		avatars = new ArrayList<Avatar>();
+		connections = new ArrayList<NetworkConnection>();
 
 		buildLevel();
 
@@ -58,6 +62,9 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 			this.addActor(comp);
 			computers.add(comp);
 		}
+		for(ConnectionDef cd : this.def.connections) {
+			connections.add(new NetworkConnection(cd));
+		}
 	}
 
 	@Override
@@ -69,8 +76,8 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.setColor(Color.RED);
-		for (ConnectionDef cd : def.connections) {
-			shapeRenderer.line(cd.comp1.location, cd.comp2.location);
+		for (NetworkConnection nc : connections) {
+			shapeRenderer.line(nc.def.comp1.location, nc.def.comp2.location);
 		}
 		shapeRenderer.end();
 
@@ -114,7 +121,6 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 		y += translation.y;
 		y = this.getStage().getHeight() - y;
 
-		System.out.println("tap " + x + "," + y);
 		for (NetworkNode c : computers) {
 			if (c.hit(x, y, true) != null) {
 				if (c != playerAvatar.currentNode) {

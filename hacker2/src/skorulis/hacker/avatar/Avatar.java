@@ -1,6 +1,7 @@
 package skorulis.hacker.avatar;
 
 import skorulis.hacker.computer.NetworkNode;
+import skorulis.hacker.def.ConnectionDef;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +14,7 @@ public class Avatar extends Actor {
 	private Texture texture;
 	private AvatarDelegate delegate;
 	public NetworkNode currentNode;
+	public ConnectionDef currentConnection;
 	public NetworkNode destinationNode;
 	
 	public float travelTime;
