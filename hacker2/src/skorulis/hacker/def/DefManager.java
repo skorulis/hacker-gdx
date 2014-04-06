@@ -7,8 +7,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import skorulis.hacker.def.square.EdgeLayerDef;
 import skorulis.hacker.def.square.TerrainLayerDef;
 import skorulis.hacker.def.square.WallLayerDef;
+import skorulis.hacker.def.square.TerrainLayerDef.TerrainType;
 
 
 public class DefManager {
@@ -32,21 +34,26 @@ public class DefManager {
 	}
 	
 	private void createSquares() {
-		WallLayerDef wallDef = new WallLayerDef("wall");
+		WallLayerDef wallDef = new WallLayerDef("wall",TerrainType.SOLID);
 		wallDef.textureMain = "data/wall_mid.png";
 		wallDef.textureHorizontal = "data/wall_horizontal.png";
 		wallDef.textureCornerNE = "data/wall_corner_ne.png";
-		squares.put(wallDef.name(), wallDef);
+		wallDef.textureStubN = "data/wall_stub_n.png";
+		addDef(wallDef);
 		
-		TerrainLayerDef csd = new TerrainLayerDef("floor");
+		TerrainLayerDef csd = new TerrainLayerDef("floor",TerrainType.GROUND);
 		csd.textureMain = "data/floor.png";
-		squares.put(csd.name(), csd);
+		addDef(csd);
+		
+		EdgeLayerDef eld = new EdgeLayerDef("connection", TerrainType.PASSABLE);
+		eld.textureMain = "data/node_n.png";
+		addDef(eld);
 	}
 	
 	private void createNodes() {
 		NodeDef c = new NodeDef("comp");
 		c.texture = "data/workgroup.png";
-		nodes.put(c.name, c);
+		addDef(c);
 	}
 	
 	private void createComputers() {
@@ -57,8 +64,7 @@ public class DefManager {
 		cd.makeYWall(getSquare("wall"), 0, 4, 0);
 		cd.makeYWall(getSquare("wall"), 0, 4, 4);
 		cd.assignTextures();
-		computers.put(cd.name(), cd);
-		
+		addDef(cd);
 	}
 	
 	private void createLevels() {
@@ -69,7 +75,22 @@ public class DefManager {
 		level.createConnection("c1","c2");
 		level.createConnection("c2","c3");
 		level.entryComputer = level.findComputer("c1");
-		levels.put(level.name, level);
+		addDef(level);
+	}
+	
+	private void addDef(BaseDef def) {
+		if(def instanceof NodeDef) {
+			nodes.put(def.name(), (NodeDef)def);
+		} else if(def instanceof LevelDef) {
+			levels.put(def.name, (LevelDef)def);
+		} else if(def instanceof ComputerDef) {
+			computers.put(def.name,(ComputerDef)def);
+		} else if(def instanceof TerrainLayerDef) {
+			squares.put(def.name, (TerrainLayerDef)def);
+		} else {
+			throw new IllegalArgumentException("Don't know where to put " + def);
+		}
+		
 	}
 	
 	public NodeDef getNode(String name) {

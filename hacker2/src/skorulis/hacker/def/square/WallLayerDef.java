@@ -4,10 +4,11 @@ public class WallLayerDef extends TerrainLayerDef {
 
 	public String textureHorizontal;
 	public String textureCornerNE;
+	public String textureStubN;
 	
 	
-	public WallLayerDef(String name) {
-		super(name);
+	public WallLayerDef(String name, TerrainType type) {
+		super(name,type);
 	}
 	
 	public CompSquareTexture calculateTexture(CompSquareDef north, CompSquareDef east, CompSquareDef south, CompSquareDef west) {
@@ -36,6 +37,14 @@ public class WallLayerDef extends TerrainLayerDef {
 			return new CompSquareTexture(textureCornerNE,270);
 		} else if(bitMask == 3) { //0011
 			return new CompSquareTexture(textureCornerNE,180);
+		} else if(bitMask == 1) { //0001
+			return new CompSquareTexture(textureStubN,0);
+		} else if(bitMask == 2) { //0010
+			return new CompSquareTexture(textureStubN,90);
+		} else if(bitMask == 4) { //0100
+			return new CompSquareTexture(textureStubN,180);
+		} else if(bitMask == 8) { //1000
+			return new CompSquareTexture(textureStubN,270);
 		} 
 		
 		
@@ -43,7 +52,7 @@ public class WallLayerDef extends TerrainLayerDef {
 	}
 	
 	public String[] allTextures() {
-		return new String[] {textureMain, textureHorizontal, textureCornerNE};
+		return new String[] {textureMain, textureHorizontal, textureCornerNE, textureStubN};
 	}
 
 }
