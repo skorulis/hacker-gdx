@@ -5,11 +5,9 @@ import java.util.ArrayList;
 public class CompSquareDef {
 	
 	public ArrayList<CompSquareLayer> layers;
-	public ArrayList<CompSquareTexture> textures;
 	
 	public CompSquareDef() {
 		layers = new ArrayList<CompSquareLayer>();
-		textures = new ArrayList<CompSquareTexture>();
 	}
 	
 	public void addLayer(TerrainLayerDef layer) {
@@ -32,9 +30,8 @@ public class CompSquareDef {
 	}
 	
 	public void assignTextures(CompSquareDef north,CompSquareDef east, CompSquareDef south, CompSquareDef west) {
-		textures.clear();
 		for(CompSquareLayer layer : layers) {
-			textures.add(layer.def.calculateTexture(north,east,south,west));
+			layer.calculateTexture(north, east, south, west);
 		}
 	}
 	

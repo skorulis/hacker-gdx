@@ -18,14 +18,14 @@ public class ComputerSquare extends Actor {
 		this.def = def;
 		textures = new TextureRegion[def.layers.size()];
 		for(int i = 0 ; i < textures.length; ++i) {
-			Texture t = assets.get(def.textures.get(i).textureName);
+			Texture t = assets.get(def.layers.get(i).texture.textureName);
 			textures[i] = new TextureRegion(t);
 		}
 	}
 	
 	public void draw(Batch batch, float alpha) {
 		for(int i = 0; i < textures.length; ++i) {
-			batch.draw(textures[i], getX(), getY(),SQUARE_SIZE/2,SQUARE_SIZE/2,SQUARE_SIZE,SQUARE_SIZE,1,1,def.textures.get(i).rotation);
+			batch.draw(textures[i], getX(), getY(),SQUARE_SIZE/2,SQUARE_SIZE/2,SQUARE_SIZE,SQUARE_SIZE,1,1,def.layers.get(i).texture.rotation);
 		}
 	}
 	
