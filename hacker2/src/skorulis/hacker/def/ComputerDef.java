@@ -41,6 +41,10 @@ public class ComputerDef extends BaseDef {
 		}
 	}
 	
+	public void place(TerrainLayerDef layer, int x, int y) {
+		squares[y][x].place(layer);
+	}
+	
 	public void assignTextures() {
 		CompSquareDef square;
 		CompSquareDef north,south,east, west;

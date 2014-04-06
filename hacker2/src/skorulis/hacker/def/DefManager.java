@@ -63,6 +63,8 @@ public class DefManager {
 		cd.makeXWall(getSquare("wall"), 0, 4, 4);
 		cd.makeYWall(getSquare("wall"), 0, 4, 0);
 		cd.makeYWall(getSquare("wall"), 0, 4, 4);
+		cd.place(getSquare("connection"), 0, 2);
+		
 		cd.assignTextures();
 		addDef(cd);
 	}
@@ -90,7 +92,6 @@ public class DefManager {
 		} else {
 			throw new IllegalArgumentException("Don't know where to put " + def);
 		}
-		
 	}
 	
 	public NodeDef getNode(String name) {

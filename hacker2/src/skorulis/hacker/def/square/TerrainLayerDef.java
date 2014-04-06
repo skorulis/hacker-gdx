@@ -26,4 +26,14 @@ public class TerrainLayerDef extends BaseDef {
 		return new String[] {textureMain};
 	}
 	
+	public boolean shouldReplace(TerrainLayerDef old) {
+		if(old.type == this.type) {
+			return true;
+		}
+		if(old.type == TerrainType.SOLID && this.type == TerrainType.PASSABLE) {
+			return true;
+		}
+		return false;
+	}
+	
 }

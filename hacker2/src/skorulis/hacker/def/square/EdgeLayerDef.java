@@ -10,11 +10,11 @@ public class EdgeLayerDef extends TerrainLayerDef {
 		if(north == null) {
 			return new CompSquareTexture(textureMain);
 		} else if(east == null) {
-			return new CompSquareTexture(textureMain,90);
+			return new CompSquareTexture(textureMain,270);
 		} else if(south == null) {
 			return new CompSquareTexture(textureMain,180);
 		} else if(west == null) {
-			return new CompSquareTexture(textureMain,270);
+			return new CompSquareTexture(textureMain,90);
 		}
 		return new CompSquareTexture(textureMain);
 	}

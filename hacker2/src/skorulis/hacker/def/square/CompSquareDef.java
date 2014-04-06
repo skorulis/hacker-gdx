@@ -20,6 +20,17 @@ public class CompSquareDef {
 		layers.clear();
 	}
 	
+	public void place(TerrainLayerDef layer) {
+		TerrainLayerDef old;
+		for(int i = 0; i < layers.size(); ++i) {
+			old = layers.get(i);
+			if(layer.shouldReplace(old)) {
+				layers.set(i, layer);
+				return;
+			}
+		}
+	}
+	
 	public void assignTextures(CompSquareDef north,CompSquareDef east, CompSquareDef south, CompSquareDef west) {
 		textures.clear();
 		for(TerrainLayerDef def : layers) {
