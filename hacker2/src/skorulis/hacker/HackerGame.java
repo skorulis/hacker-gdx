@@ -44,6 +44,7 @@ public class HackerGame implements ApplicationListener {
 		//Gdx.input.setInputProcessor(stage);
 	    
 	    stage.addActor(level);
+	    level.start();
 	}
 
 	@Override
@@ -58,10 +59,8 @@ public class HackerGame implements ApplicationListener {
 			return;
 		}
 		
-		
 		stage.act(Gdx.graphics.getDeltaTime());
 	    stage.draw();
-		
 	}
 
 	@Override

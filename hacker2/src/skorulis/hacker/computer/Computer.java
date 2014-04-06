@@ -4,14 +4,13 @@ package skorulis.hacker.computer;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 import skorulis.hacker.def.ComputerDef;
 
 public class Computer extends Group {
 
-	private static int SQUARE_SIZE = 64;
+	private static int SQUARE_SIZE = 32;
 	
 	public ComputerDef def;
 	public ComputerSquare squares[];
