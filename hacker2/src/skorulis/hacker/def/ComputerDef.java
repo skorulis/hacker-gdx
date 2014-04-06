@@ -47,8 +47,8 @@ public class ComputerDef extends BaseDef {
 		for(int i = 0; i < height; ++i) {
 			for(int j = 0; j < width; ++j) {
 				square = squares[i][j];
-				north = i > 0 ? squares[i-1][j] : null;
-				south = i < height - 1 ? squares[i+1][j] : null;
+				south = i > 0 ? squares[i-1][j] : null;
+				north = i < height - 1 ? squares[i+1][j] : null;
 				west = j > 0 ? squares[i][j-1] : null;
 				east = j < width - 1 ? squares[i][j+1] : null;
 				square.assignTextures(north, east, south, west);

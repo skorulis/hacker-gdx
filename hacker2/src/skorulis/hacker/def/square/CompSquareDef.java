@@ -2,8 +2,6 @@ package skorulis.hacker.def.square;
 
 import java.util.ArrayList;
 
-import skorulis.hacker.computer.ComputerSquare;
-
 public class CompSquareDef {
 	
 	public ArrayList<TerrainLayerDef> layers;
