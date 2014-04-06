@@ -1,6 +1,7 @@
 package skorulis.hacker.def;
 
 import skorulis.hacker.def.square.CompSquareDef;
+import skorulis.hacker.def.square.CompSquareLayer;
 import skorulis.hacker.def.square.TerrainLayerDef;
 
 
@@ -41,8 +42,8 @@ public class ComputerDef extends BaseDef {
 		}
 	}
 	
-	public void place(TerrainLayerDef layer, int x, int y) {
-		squares[y][x].place(layer);
+	public CompSquareLayer place(TerrainLayerDef layer, int x, int y) {
+		return squares[y][x].place(layer);
 	}
 	
 	public void assignTextures() {

@@ -54,6 +54,10 @@ public class DefManager {
 		NodeDef c = new NodeDef("comp");
 		c.texture = "data/workgroup.png";
 		addDef(c);
+		
+		c = new NodeDef("net");
+		c.texture = "data/net.png";
+		addDef(c);
 	}
 	
 	private void createComputers() {
@@ -63,7 +67,8 @@ public class DefManager {
 		cd.makeXWall(getSquare("wall"), 0, 4, 4);
 		cd.makeYWall(getSquare("wall"), 0, 4, 0);
 		cd.makeYWall(getSquare("wall"), 0, 4, 4);
-		cd.place(getSquare("connection"), 0, 2);
+		cd.place(getSquare("connection"), 0, 2).id = "con1";
+		cd.place(getSquare("connection"), 4, 2).id = "con2";
 		
 		cd.assignTextures();
 		addDef(cd);
@@ -71,9 +76,10 @@ public class DefManager {
 	
 	private void createLevels() {
 		LevelDef level = new LevelDef("l1");
-		level.computers.add(new NodePosDef("c1", getNode("comp"), getComputer("comp1"), 50, 50));
+		//level.computers.add(new NodePosDef("c1", getNode("comp"), getComputer("comp1"), 50, 50));
+		level.computers.add(new NodePosDef("c1", getNode("net"),  50, 50));
 		level.computers.add(new NodePosDef("c2", getNode("comp"), getComputer("comp1"), 300, 200));
-		level.computers.add(new NodePosDef("c3", getNode("comp"), 500, 200));
+		level.computers.add(new NodePosDef("c3", getNode("net"), 500, 200));
 		level.createConnection("c1","c2");
 		level.createConnection("c2","c3");
 		level.entryComputer = level.findComputer("c1");

@@ -18,15 +18,17 @@ public class CompSquareDef {
 		layers.clear();
 	}
 	
-	public void place(TerrainLayerDef layer) {
+	public CompSquareLayer place(TerrainLayerDef layer) {
 		TerrainLayerDef old;
 		for(int i = 0; i < layers.size(); ++i) {
 			old = layers.get(i).def;
 			if(layer.shouldReplace(old)) {
-				layers.set(i, new CompSquareLayer(layer));
-				return;
+				CompSquareLayer newLayer = new CompSquareLayer(layer);
+				layers.set(i, newLayer);
+				return newLayer;
 			}
 		}
+		return null;
 	}
 	
 	public void assignTextures(CompSquareDef north,CompSquareDef east, CompSquareDef south, CompSquareDef west) {
