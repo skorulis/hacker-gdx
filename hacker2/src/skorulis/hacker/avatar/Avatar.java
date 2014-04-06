@@ -23,7 +23,7 @@ public class Avatar extends Actor {
 	public Avatar(NetworkNode computer,AvatarDelegate delegate) {
 		this.currentNode = computer;
 		this.delegate = delegate;
-		texture = new Texture(Gdx.files.internal("data/twitter-icon.png"));
+		texture = new Texture(Gdx.files.internal("data/eye.png"));
 		this.setLocation(computer.def.location);
 	}
 	
