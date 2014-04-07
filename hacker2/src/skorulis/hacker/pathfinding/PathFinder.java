@@ -101,6 +101,8 @@ public class PathFinder {
 	}
 	
 	private int calculateHeuristic(ComputerSquare square, ComputerSquare dest) {
+		if(square == null) { throw new IllegalArgumentException("Missing from"); }
+		if(dest == null) { throw new IllegalArgumentException("Missing dest"); }
 		int x = (int) (dest.getX() - square.getX());
 		int y = (int) (dest.getY() - square.getY());
 		x = Math.abs(x);

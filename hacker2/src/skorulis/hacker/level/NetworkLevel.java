@@ -155,7 +155,9 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 	
 	private void computerTap(float x, float y) {
 		ComputerSquare cs = openComputer.squareAtLocation(x,y);
-		playerAvatar.moveTo(cs);
+		if(cs != null && playerAvatar.currentSquare != cs) {
+			playerAvatar.moveTo(cs);
+		}
 	}
 	
 	private void networkTap(float x, float y) {
