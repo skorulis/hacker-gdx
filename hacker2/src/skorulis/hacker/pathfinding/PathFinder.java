@@ -104,6 +104,9 @@ public class PathFinder {
 	private int calculateHeuristic(ComputerSquare square, ComputerSquare dest) {
 		int x = (int) (dest.getX() - square.getX());
 		int y = (int) (dest.getY() - square.getY());
+		x = Math.abs(x);
+		y = Math.abs(y);
+		
 		
 		int min = Math.min(x, y);
 		int max = Math.max(x, y);

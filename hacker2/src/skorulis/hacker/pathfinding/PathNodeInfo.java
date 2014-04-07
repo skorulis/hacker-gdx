@@ -22,4 +22,8 @@ public class PathNodeInfo {
 		return value + heuristic;
 	}
 	
+	public String toString() {
+		return "(" + square.getX() + ", " + square.getY() +") V: " + value;
+	}
+	
 }
