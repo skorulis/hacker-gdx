@@ -1,7 +1,13 @@
 package skorulis.hacker.avatar;
 
+import skorulis.hacker.computer.Computer;
+import skorulis.hacker.computer.ComputerSquare;
 import skorulis.hacker.computer.NetworkConnection;
 import skorulis.hacker.computer.NetworkNode;
+import skorulis.hacker.pathfinding.ComputerPath;
+import skorulis.hacker.pathfinding.MovementInfo;
+import skorulis.hacker.pathfinding.PathFinder;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -12,12 +18,19 @@ public class Avatar extends Actor {
 
 	private Texture texture;
 	private AvatarDelegate delegate;
+	
+	//Network data
 	public NetworkNode currentNode;
 	public NetworkConnection currentConnection;
 	public NetworkNode destinationNode;
 	
-	public float travelTime;
-	public float currentTime;
+	//Computer data
+	public Computer currentComputer;
+	public ComputerSquare currentSquare;
+	public ComputerSquare destinationSquare;
+	public ComputerPath currentPath;
+	
+	public MovementInfo movement;
 	
 	public float speed = 200;
 	
@@ -38,9 +51,7 @@ public class Avatar extends Actor {
 	
 	public void travelTo(NetworkNode c) {
 		destinationNode = c;
-		travelTime = currentNode.def.location.cpy().sub(destinationNode.def.location).len();
-		travelTime /= speed;
-		currentTime = 0;
+		movement = new MovementInfo(currentNode.def.location, destinationNode.def.location, speed);
 	}
 	
 	public void travelAlong(NetworkConnection connection) {
@@ -48,20 +59,39 @@ public class Avatar extends Actor {
 		travelTo(connection.otherNode(currentNode));
 	}
 	
+	public void moveTo(ComputerSquare square) {
+		destinationSquare = square;
+		PathFinder finder = new PathFinder(currentComputer,currentSquare,destinationSquare);
+		currentPath = finder.generatePath();
+		
+	}
+	
 	public void act(float delta) {
 		if(destinationNode != null) {
-			currentTime += delta;
-			currentTime = Math.min(currentTime, travelTime);
-			float pct = currentTime / travelTime;
-			Vector2 v1 = currentNode.def.location.cpy().scl(1-pct);
-			Vector2 v2 = destinationNode.def.location.cpy().scl(pct);
-			setLocation(v1.add(v2));
-			if(currentTime == travelTime) {
-				currentNode = destinationNode;
-				destinationNode = null;
-				delegate.avatarDidReachNode(this,currentNode,currentConnection);
-				currentConnection = null;
-			}
+			moveInNetwork(delta);
+		} else if(currentPath != null) {
+			moveInComputer(delta);
 		}
 	}
+	
+	private void moveInNetwork(float delta) {
+		setLocation(movement.update(delta));
+		if(movement.finished()) {
+			currentNode = destinationNode;
+			destinationNode = null;
+			delegate.avatarDidReachNode(this,currentNode,currentConnection);
+			currentConnection = null;
+			movement = null;
+		}
+	}
+	
+	private void moveInComputer(float delta) {
+		setLocation(movement.update(delta));
+		if(movement.finished()) {
+			
+		}
+		
+	}
+	
+	
 }

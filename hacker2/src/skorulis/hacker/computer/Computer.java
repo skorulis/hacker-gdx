@@ -2,12 +2,15 @@ package skorulis.hacker.computer;
 
 
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 import skorulis.hacker.def.ComputerDef;
 import skorulis.hacker.def.square.CompSquareLayer;
+import skorulis.hacker.pathfinding.ComputerPath;
 
 public class Computer extends Group {
 
@@ -28,8 +31,6 @@ public class Computer extends Group {
 	}
 	
 	public void draw(Batch batch, float alpha) {
-		//batch.draw(texture, getX(), getY());
-		
 		drawChildren(batch, alpha);
 	}
 	
@@ -56,6 +57,26 @@ public class Computer extends Group {
 			}
 		}
 		return null;
+	}
+	
+	public ArrayList<ComputerSquare> adjacentSquares(ComputerSquare square) {
+		int x = (int) (square.getX() / ComputerSquare.SQUARE_SIZE);
+		int y = (int) (square.getY() / ComputerSquare.SQUARE_SIZE);
+		
+		ArrayList<ComputerSquare> ret = new ArrayList<ComputerSquare>();
+		
+		for(int i = y - 1; i <= y + 1; ++i) {
+			for(int j = x - 1; j <= x + 1; ++j) {
+				if(i < 0 || i >= def.height || j < 0 || j >= def.width) {
+					continue;
+				}
+				if(i == y && j == y) {
+					continue;
+				}
+				ret.add(squares[i][j]);
+			}
+		}
+		return ret;
 	}
 	
 }

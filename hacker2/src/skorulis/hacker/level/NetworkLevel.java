@@ -119,6 +119,8 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 				ComputerSquare cs = node.computer.findSquare(squareId);
 				
 				this.removeActor(avatar);
+				avatar.currentComputer = node.computer;
+				avatar.currentSquare = cs;
 				avatar.currentNode.computer.addActor(avatar);
 				avatar.setPosition(cs.getX(), cs.getY());
 				openComputer(avatar.currentNode);
@@ -143,11 +145,20 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 		y += translation.y;
 		y = this.getStage().getHeight() - y;
 		if(openComputer != null) {
-			ComputerSquare cs = openComputer.squareAtLocation(x,y);
-			playerAvatar.setPosition(cs.getX(), cs.getY());
-			return false;
+			computerTap(x, y);
+		} else {
+			networkTap(x, y);
 		}
 		
+		return false;
+	}
+	
+	private void computerTap(float x, float y) {
+		ComputerSquare cs = openComputer.squareAtLocation(x,y);
+		playerAvatar.moveTo(cs);
+	}
+	
+	private void networkTap(float x, float y) {
 		for (NetworkNode n : computers) {
 			if (n.hit(x, y, true) != null) {
 				if (n != playerAvatar.currentNode) {
@@ -158,7 +169,6 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 				}
 			}
 		}
-		return false;
 	}
 	
 	public NetworkConnection findConnection(NetworkNode node1, NetworkNode node2) {
