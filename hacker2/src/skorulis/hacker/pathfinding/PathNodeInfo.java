@@ -23,7 +23,7 @@ public class PathNodeInfo {
 	}
 	
 	public String toString() {
-		return "(" + square.getX() + ", " + square.getY() +") V: " + value;
+		return "(" + square.getX() / ComputerSquare.SQUARE_SIZE + ", " + square.getY() / ComputerSquare.SQUARE_SIZE +") V: " + value + " S: " + score();
 	}
 	
 }

@@ -65,7 +65,7 @@ public class Computer extends Group {
 				if(i < 0 || i >= def.height || j < 0 || j >= def.width) {
 					continue;
 				}
-				if(i == y && j == y) {
+				if(i == y && j == x) {
 					continue;
 				}
 				ret.add(squares[i][j]);

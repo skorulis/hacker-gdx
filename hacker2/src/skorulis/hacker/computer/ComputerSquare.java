@@ -38,4 +38,8 @@ public class ComputerSquare extends Actor {
 		return new Vector2(getX() + SQUARE_SIZE/2,getY() + SQUARE_SIZE/2);
 	}
 	
+	public String toString() {
+		return "(" + getX() / SQUARE_SIZE + "," + getY() / SQUARE_SIZE + ")"; 
+	}
+	
 }

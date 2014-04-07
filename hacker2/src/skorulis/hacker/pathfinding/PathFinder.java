@@ -49,7 +49,6 @@ public class PathFinder {
 			pni = pni.parent;
 		}
 		Collections.reverse(nodes);
-		System.out.println("Created path " + nodes);
 		return new ComputerPath(nodes);
 	}
 	
@@ -106,7 +105,6 @@ public class PathFinder {
 		int y = (int) (dest.getY() - square.getY());
 		x = Math.abs(x);
 		y = Math.abs(y);
-		
 		
 		int min = Math.min(x, y);
 		int max = Math.max(x, y);
