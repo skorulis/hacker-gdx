@@ -1,19 +1,14 @@
 package skorulis.hacker.computer;
 
-
-
 import java.util.ArrayList;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
-
 import skorulis.hacker.def.ComputerDef;
 import skorulis.hacker.def.square.CompSquareLayer;
-import skorulis.hacker.pathfinding.ComputerPath;
 
 public class Computer extends Group {
-
 	
 	public ComputerDef def;
 	public ComputerSquare squares[][];

@@ -63,7 +63,7 @@ public class Avatar extends Actor {
 		destinationSquare = square;
 		PathFinder finder = new PathFinder(currentComputer,currentSquare,destinationSquare);
 		currentPath = finder.generatePath();
-		
+		movement = currentPath.getMovement(speed/2 );
 	}
 	
 	public void act(float delta) {
@@ -88,7 +88,13 @@ public class Avatar extends Actor {
 	private void moveInComputer(float delta) {
 		setLocation(movement.update(delta));
 		if(movement.finished()) {
-			
+			currentSquare = currentPath.nextNode();
+			if(currentPath.finished()) {
+				movement = null;
+				currentPath = null;
+			} else {
+				movement = currentPath.next(speed/2);
+			}
 		}
 		
 	}

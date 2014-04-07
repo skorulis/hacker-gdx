@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class ComputerSquare extends Actor {
@@ -27,6 +28,14 @@ public class ComputerSquare extends Actor {
 		for(int i = 0; i < textures.length; ++i) {
 			batch.draw(textures[i], getX(), getY(),SQUARE_SIZE/2,SQUARE_SIZE/2,SQUARE_SIZE,SQUARE_SIZE,1,1,def.layers.get(i).texture.rotation);
 		}
+	}
+	
+	public Vector2 getLocation() {
+		return new Vector2(getX(),getY());
+	}
+	
+	public Vector2 getCentreLoc() {
+		return new Vector2(getX() + SQUARE_SIZE/2,getY() + SQUARE_SIZE/2);
 	}
 	
 }

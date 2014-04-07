@@ -49,6 +49,7 @@ public class PathFinder {
 			pni = pni.parent;
 		}
 		Collections.reverse(nodes);
+		System.out.println("Created path " + nodes);
 		return new ComputerPath(nodes);
 	}
 	
