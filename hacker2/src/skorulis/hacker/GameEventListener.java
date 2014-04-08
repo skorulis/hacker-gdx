@@ -62,13 +62,18 @@ public class GameEventListener implements GestureListener{
 		x -= level.translation.x;
 		y += level.translation.y;
 		y = level.getStage().getHeight() - y;
-		if(level.openComputer != null) {
+		if(level.openComputer() != null) {
 			level.computerTap(x, y);
 		} else {
 			level.networkTap(x, y);
 		}
 		
 		return false;
+	}
+	
+	public void actionClicked() {
+		level.playerAvatar().performAction();
+		System.out.println("EVE");
 	}
 	
 }

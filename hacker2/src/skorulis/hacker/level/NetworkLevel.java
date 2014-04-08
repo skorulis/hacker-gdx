@@ -33,7 +33,7 @@ public class NetworkLevel extends Group implements Disposable,
 	private ShapeRenderer shapeRenderer;
 	public Vector3 translation;
 	private AssetManager assets;
-	public Computer openComputer;
+	private Computer openComputer;
 
 	public NetworkLevel(LevelDef def, AssetManager assets) {
 		this.def = def;
@@ -161,10 +161,16 @@ public class NetworkLevel extends Group implements Disposable,
 		return null;
 	}
 
-
-
 	public void dispose() {
 
+	}
+	
+	public Computer openComputer() {
+		return openComputer;
+	}
+	
+	public Avatar playerAvatar() {
+		return playerAvatar;
 	}
 
 }

@@ -1,5 +1,7 @@
 package skorulis.hacker.ui;
 
+import skorulis.hacker.GameEventListener;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -11,10 +13,10 @@ public class UIManager {
 	private GameUI gameUI;
 	private Skin skin;
 	
-	public UIManager() {
+	public UIManager(GameEventListener gameListener) {
 		stage = new Stage(new ScreenViewport());
 		skin = new Skin(Gdx.files.internal("data/skin/uiskin.json"));
-		gameUI = new GameUI(skin);
+		gameUI = new GameUI(skin,gameListener);
 		stage.addActor(gameUI);
 	}
 	

@@ -32,7 +32,6 @@ public class Avatar extends Actor {
 	
 	public MovementInfo movement;
 
-	
 	public float speed = 200;
 	
 	public Avatar(NetworkNode computer,AvatarDelegate delegate) {
@@ -115,6 +114,10 @@ public class Avatar extends Actor {
 			return movement.destSquare;
 		}
 		return this.currentSquare;
+	}
+	
+	public void performAction() {
+		
 	}
 	
 	

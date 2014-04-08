@@ -39,9 +39,10 @@ public class HackerGame implements ApplicationListener {
 		stage = new Stage(new ScreenViewport());
 		loading = true;
 		
-		ui = new UIManager();
-		
 		gameListener = new GameEventListener();
+		ui = new UIManager(gameListener);
+		
+		
 		GestureDetector gd = new GestureDetector(gameListener);
 		Gdx.input.setInputProcessor(new InputMultiplexer(ui.stage, gd));
 	}
