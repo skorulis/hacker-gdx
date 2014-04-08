@@ -26,11 +26,12 @@ public class Avatar extends Actor {
 	
 	//Computer data
 	public Computer currentComputer;
-	public ComputerSquare currentSquare;
+	private ComputerSquare currentSquare;
 	public ComputerSquare destinationSquare;
 	public ComputerPath currentPath;
 	
 	public MovementInfo movement;
+
 	
 	public float speed = 200;
 	
@@ -61,9 +62,11 @@ public class Avatar extends Actor {
 	
 	public void moveTo(ComputerSquare square) {
 		destinationSquare = square;
-		PathFinder finder = new PathFinder(currentComputer,currentSquare,destinationSquare);
+		PathFinder finder = new PathFinder(currentComputer,currentSquare(),destinationSquare);
 		currentPath = finder.generatePath();
-		movement = currentPath.getMovement(speed/2 );
+		if(movement == null) {
+			movement = currentPath.getMovement(speed/2 );
+		}
 	}
 	
 	public void act(float delta) {
@@ -88,15 +91,30 @@ public class Avatar extends Actor {
 	private void moveInComputer(float delta) {
 		setLocation(movement.update(delta));
 		if(movement.finished()) {
-			currentSquare = currentPath.nextNode();
+			currentSquare = movement.destSquare;
 			if(currentPath.finished()) {
 				movement = null;
 				currentPath = null;
 			} else {
-				movement = currentPath.next(speed/2);
+				if(movement.destSquare == currentPath.nextNode()) {
+					movement = currentPath.next(speed/2);
+				} else {
+					movement = currentPath.getMovement(speed/2);
+				}
+				
 			}
 		}
-		
+	}
+	
+	public void setCurrentSquare(ComputerSquare sq) {
+		this.currentSquare = sq;
+	}
+	
+	public ComputerSquare currentSquare() {
+		if(movement !=null) {
+			return movement.destSquare;
+		}
+		return this.currentSquare;
 	}
 	
 	

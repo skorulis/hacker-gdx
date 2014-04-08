@@ -27,6 +27,7 @@ public class ComputerPath {
 		Vector2 v1 = nodes.get(nodeIndex).square.getCentreLoc();
 		Vector2 v2 = nodes.get(nodeIndex + 1).square.getCentreLoc();
 		MovementInfo mi = new MovementInfo(v1, v2, speed);
+		mi.destSquare = nextNode();
 		return mi;
 	}
 	

@@ -120,7 +120,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 				
 				this.removeActor(avatar);
 				avatar.currentComputer = node.computer;
-				avatar.currentSquare = cs;
+				avatar.setCurrentSquare(cs);
 				avatar.currentNode.computer.addActor(avatar);
 				avatar.setPosition(cs.getX(), cs.getY());
 				openComputer(avatar.currentNode);
@@ -155,7 +155,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 	
 	private void computerTap(float x, float y) {
 		ComputerSquare cs = openComputer.squareAtLocation(x,y);
-		if(cs != null && playerAvatar.currentSquare != cs) {
+		if(cs != null && playerAvatar.currentSquare() != cs && cs.isPassable()) {
 			playerAvatar.moveTo(cs);
 		}
 	}

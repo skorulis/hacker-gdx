@@ -7,12 +7,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import skorulis.hacker.def.square.CompSquareDef;
 import skorulis.hacker.def.square.EdgeLayerDef;
 import skorulis.hacker.def.square.TerrainLayerDef;
 import skorulis.hacker.def.square.WallLayerDef;
 import skorulis.hacker.def.square.TerrainLayerDef.TerrainType;
-
 
 public class DefManager {
 
@@ -70,6 +68,7 @@ public class DefManager {
 		cd.makeYWall(getSquare("wall"), 0, 4, 4);
 		cd.place(getSquare("connection"), 0, 2).id = "con1";
 		cd.place(getSquare("connection"), 4, 2).id = "con2";
+		cd.place(getSquare("wall"), 2, 2);
 		
 		cd.assignTextures();
 		addDef(cd);

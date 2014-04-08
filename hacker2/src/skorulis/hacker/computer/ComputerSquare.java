@@ -1,6 +1,8 @@
 package skorulis.hacker.computer;
 
 import skorulis.hacker.def.square.CompSquareDef;
+import skorulis.hacker.def.square.CompSquareLayer;
+import skorulis.hacker.def.square.TerrainLayerDef.TerrainType;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -40,6 +42,15 @@ public class ComputerSquare extends Actor {
 	
 	public String toString() {
 		return "(" + getX() / SQUARE_SIZE + "," + getY() / SQUARE_SIZE + ")"; 
+	}
+	
+	public boolean isPassable() {
+		for(CompSquareLayer layer : def.layers) {
+			if(layer.def.type == TerrainType.SOLID) { 
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }

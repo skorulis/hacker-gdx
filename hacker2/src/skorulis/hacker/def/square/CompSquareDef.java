@@ -10,8 +10,10 @@ public class CompSquareDef {
 		layers = new ArrayList<CompSquareLayer>();
 	}
 	
-	public void addLayer(TerrainLayerDef layer) {
-		layers.add(new CompSquareLayer(layer) );
+	public CompSquareLayer addLayer(TerrainLayerDef layer) {
+		CompSquareLayer csl = new CompSquareLayer(layer);
+		layers.add(csl);
+		return csl;
 	}
 	
 	public void clear() {
@@ -28,7 +30,7 @@ public class CompSquareDef {
 				return newLayer;
 			}
 		}
-		return null;
+		return addLayer(layer);
 	}
 	
 	public void assignTextures(CompSquareDef north,CompSquareDef east, CompSquareDef south, CompSquareDef west) {

@@ -71,6 +71,9 @@ public class PathFinder {
 		closedList.add(parentNode);
 		ArrayList<ComputerSquare> adj = computer.adjacentSquares(parentNode.square);
 		for(ComputerSquare cs : adj) {
+			if(!cs.isPassable()) {
+				continue;
+			}
 			if(!hasNode(cs)) {
 				PathNodeInfo pni = new PathNodeInfo(cs,parentNode);
 				pni.value = parentNode.value + calculateHeuristic(parentNode.square, pni.square);

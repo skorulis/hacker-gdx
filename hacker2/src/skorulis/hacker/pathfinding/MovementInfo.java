@@ -1,5 +1,7 @@
 package skorulis.hacker.pathfinding;
 
+import skorulis.hacker.computer.ComputerSquare;
+
 import com.badlogic.gdx.math.Vector2;
 
 public class MovementInfo {
@@ -9,6 +11,8 @@ public class MovementInfo {
 	
 	public Vector2 startLoc;
 	public Vector2 endLoc;
+	
+	public ComputerSquare destSquare;
 	
 	public MovementInfo(Vector2 startLoc, Vector2 endLoc,float speed) {
 		this.startLoc = startLoc.cpy();
