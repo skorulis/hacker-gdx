@@ -2,8 +2,8 @@ package skorulis.hacker.avatar;
 
 import skorulis.hacker.computer.Computer;
 import skorulis.hacker.computer.NetworkConnection;
-import skorulis.hacker.computer.NetworkNode;
 import skorulis.hacker.computer.square.ComputerSquare;
+import skorulis.hacker.level.NetworkNode;
 import skorulis.hacker.pathfinding.ComputerPath;
 import skorulis.hacker.pathfinding.MovementInfo;
 import skorulis.hacker.pathfinding.PathFinder;
@@ -38,7 +38,7 @@ public class Avatar extends Actor {
 		this.currentNode = computer;
 		this.delegate = delegate;
 		texture = new Texture(Gdx.files.internal("data/eye.png"));
-		this.setLocation(computer.def.location);
+		this.setLocation(computer.location);
 	}
 	
 	public void draw(Batch batch, float alpha) {
@@ -51,7 +51,7 @@ public class Avatar extends Actor {
 	
 	public void travelTo(NetworkNode c) {
 		destinationNode = c;
-		movement = new MovementInfo(currentNode.def.location, destinationNode.def.location, speed);
+		movement = new MovementInfo(currentNode.location, destinationNode.location, speed);
 	}
 	
 	public void travelAlong(NetworkConnection connection) {

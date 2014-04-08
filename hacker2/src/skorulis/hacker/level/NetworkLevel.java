@@ -16,9 +16,7 @@ import skorulis.hacker.avatar.Avatar;
 import skorulis.hacker.avatar.AvatarDelegate;
 import skorulis.hacker.computer.Computer;
 import skorulis.hacker.computer.NetworkConnection;
-import skorulis.hacker.computer.NetworkNode;
 import skorulis.hacker.computer.square.ComputerSquare;
-import skorulis.hacker.def.NodePosDef;
 import skorulis.hacker.def.ConnectionDef;
 import skorulis.hacker.def.LevelDef;
 
@@ -26,7 +24,6 @@ public class NetworkLevel extends Group implements Disposable,
 		AvatarDelegate {
 
 	private LevelDef def;
-	private ArrayList<NetworkNode> computers;
 	private ArrayList<Avatar> avatars;
 	private ArrayList<NetworkConnection> connections;
 	private Avatar playerAvatar;
@@ -40,7 +37,6 @@ public class NetworkLevel extends Group implements Disposable,
 		this.assets = assets;
 
 		translation = new Vector3();
-		computers = new ArrayList<NetworkNode>();
 		avatars = new ArrayList<Avatar>();
 		connections = new ArrayList<NetworkConnection>();
 
@@ -57,10 +53,9 @@ public class NetworkLevel extends Group implements Disposable,
 	}
 
 	private void buildLevel() {
-		for (NodePosDef cd : this.def.computers) {
-			NetworkNode comp = new NetworkNode(cd, assets);
-			this.addActor(comp);
-			computers.add(comp);
+		for (NetworkNode cd : this.def.computers) {
+			cd.loadTextures(assets);
+			this.addActor(cd);
 		}
 		for(ConnectionDef cd : this.def.connections) {
 			NetworkConnection connection = new NetworkConnection(cd);
@@ -71,8 +66,8 @@ public class NetworkLevel extends Group implements Disposable,
 	}
 	
 	public NetworkNode findNode(String name) {
-		for(NetworkNode node : computers) {
-			if(node.def.name().equals(name)) {
+		for(NetworkNode node : def.computers) {
+			if(node.name().equals(name)) {
 				return node;
 			}
 		}
@@ -99,8 +94,8 @@ public class NetworkLevel extends Group implements Disposable,
 	}
 
 	public NetworkNode findEntryComputer() {
-		for (NetworkNode c : computers) {
-			if (c.def.name().equals(def.entryComputer.name())) {
+		for (NetworkNode c : def.computers) {
+			if (c.name().equals(def.entryComputer.name())) {
 				return c;
 			}
 		}
@@ -140,7 +135,7 @@ public class NetworkLevel extends Group implements Disposable,
 	}
 	
 	public void networkTap(float x, float y) {
-		for (NetworkNode n : computers) {
+		for (NetworkNode n : def.computers) {
 			if (n.hit(x, y, true) != null) {
 				if (n != playerAvatar.currentNode) {
 					NetworkConnection connection = findConnection(playerAvatar.currentNode, n);

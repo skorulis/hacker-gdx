@@ -1,7 +1,7 @@
 package skorulis.hacker.avatar;
 
 import skorulis.hacker.computer.NetworkConnection;
-import skorulis.hacker.computer.NetworkNode;
+import skorulis.hacker.level.NetworkNode;
 
 public interface AvatarDelegate {
 
