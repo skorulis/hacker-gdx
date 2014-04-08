@@ -1,22 +1,26 @@
 package skorulis.hacker.def;
 
+import com.badlogic.gdx.scenes.scene2d.Group;
+
+import skorulis.hacker.computer.ComputerSquare;
 import skorulis.hacker.def.square.CompSquareDef;
 import skorulis.hacker.def.square.CompSquareLayer;
-import skorulis.hacker.def.square.TerrainLayerDef;
 
-public class ComputerDef extends BaseDef {
+public class ComputerDef extends Group {
 	
+	private String name;
 	public int width,height;
 	public CompSquareDef[][] squares;
 	
 	public ComputerDef(String name,int width, int height) {
-		super(name);
+		this.name = name;
 		this.width = width;
 		this.height = height;
 		squares = new CompSquareDef[height][width];
 		for(int i = 0 ; i < height; ++i) {
 			for(int j = 0; j < width; ++j) {
 				squares[i][j] = new CompSquareDef();
+				squares[i][j].setPosition(j*CompSquareDef.SQUARE_SIZE, i*CompSquareDef.SQUARE_SIZE);
 			}
 		}
 	}
@@ -47,6 +51,10 @@ public class ComputerDef extends BaseDef {
 			}
 		}
 		return null;
+	}
+	
+	public String name() {
+		return name;
 	}
 	
 }
