@@ -27,28 +27,34 @@ public class ComputerBuilder {
 				north = i < computer.height - 1 ? computer.squares[i+1][j] : null;
 				west = j > 0 ? computer.squares[i][j-1] : null;
 				east = j < computer.width - 1 ? computer.squares[i][j+1] : null;
-				square.assignTextures(north, east, south, west);
+				assignTexturesToSquare(square, north, east, south, west);
 			}
+		}
+	}
+	
+	public void assignTexturesToSquare(ComputerSquare square, ComputerSquare north,ComputerSquare east, ComputerSquare south, ComputerSquare west) {
+		for(CompSquareLayer layer : square.layers) {
+			layer.calculateTexture(north, east, south, west);
 		}
 	}
 	
 	public void fillWith(TerrainLayerDef layer) {
 		for(int i = 0 ; i < computer.height; ++i) {
 			for(int j = 0; j < computer.width; ++j) {
-				computer.squares[i][j].addLayer(layer);
+				addLayerToSquare(computer.squares[i][j],layer);
 			}
 		}
 	}
 	
 	public void makeXWall(TerrainLayerDef layer, int x1, int x2, int y) {
 		for(int i = x1; i <= x2; ++i) {
-			computer.squares[y][i].addLayer(layer);
+			addLayerToSquare(computer.squares[y][i],layer);
 		}
 	}
 	
 	public void makeYWall(TerrainLayerDef layer, int y1, int y2, int x) {
 		for(int i = y1; i <= y2; ++i) {
-			computer.squares[i][x].addLayer(layer);
+			addLayerToSquare(computer.squares[i][x],layer);
 		}
 	}
 	
@@ -57,6 +63,12 @@ public class ComputerBuilder {
 		makeXWall(layer, 0, computer.width-1, computer.height-1);
 		makeYWall(layer, 0, computer.height-1, 0);
 		makeYWall(layer, 0, computer.height-1, computer.width-1);
+	}
+	
+	public CompSquareLayer addLayerToSquare(ComputerSquare square, TerrainLayerDef layer) {
+		CompSquareLayer csl = layer.createLayerInstance();
+		square.layers.add(csl);
+		return csl;
 	}
 	
 	public CompSquareLayer place(TerrainLayerDef layer, int x, int y) {
@@ -69,12 +81,12 @@ public class ComputerBuilder {
 		for(int i = 0; i < square.layers.size(); ++i) {
 			old = square.layers.get(i).def;
 			if(layer.shouldReplace(old)) {
-				CompSquareLayer newLayer = new CompSquareLayer(layer);
+				CompSquareLayer newLayer = layer.createLayerInstance();
 				square.layers.set(i, newLayer);
 				return newLayer;
 			}
 		}
-		return square.addLayer(layer);
+		return addLayerToSquare(square,layer);
 	}
 	
 	public int width() {

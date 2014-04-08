@@ -8,7 +8,15 @@ public class CompSquareLayer {
 	public CompSquareTexture texture;
 	public String id;
 	
+	public CompSquareLayer() {
+		
+	}
+	
 	public CompSquareLayer(TerrainLayerDef def) {
+		this.def = def;
+	}
+	
+	public void setDef(TerrainLayerDef def) {
 		this.def = def;
 	}
 	

@@ -58,24 +58,6 @@ public class ComputerSquare extends Actor {
 		return true;
 	}
 	
-	//DEF
-	
-	public CompSquareLayer addLayer(TerrainLayerDef layer) {
-		CompSquareLayer csl = new CompSquareLayer(layer);
-		layers.add(csl);
-		return csl;
-	}
-	
-	public void clear() {
-		layers.clear();
-	}
-	
-	public void assignTextures(ComputerSquare north,ComputerSquare east, ComputerSquare south, ComputerSquare west) {
-		for(CompSquareLayer layer : layers) {
-			layer.calculateTexture(north, east, south, west);
-		}
-	}
-	
 	public boolean hasLayer(String name) {
 		for(CompSquareLayer tld : layers) {
 			if(tld.def.name().equals(name)) {

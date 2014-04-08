@@ -48,4 +48,17 @@ public class TerrainLayerDef extends BaseDef {
 		return false;
 	}
 	
+	public CompSquareLayer createLayerInstance() {
+		CompSquareLayer csl = null;
+		try {
+			csl = this.layerClass.newInstance();
+			csl.setDef(this);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return csl;
+	}
+	
 }
