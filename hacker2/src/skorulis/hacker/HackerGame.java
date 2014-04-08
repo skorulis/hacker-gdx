@@ -9,6 +9,7 @@ import skorulis.hacker.ui.UIManager;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,6 +25,7 @@ public class HackerGame implements ApplicationListener {
 	private AssetManager assets;
 	private boolean loading;
 	private UIManager ui;
+	private GameEventListener gameListener;
 	
 	@Override
 	public void create() {		
@@ -39,18 +41,18 @@ public class HackerGame implements ApplicationListener {
 		loading = true;
 		
 		ui = new UIManager();
+		
+		gameListener = new GameEventListener();
+		GestureDetector gd = new GestureDetector(gameListener);
+		Gdx.input.setInputProcessor(new InputMultiplexer(ui.stage, gd));
 	}
 	
 	private void startLevel() {
 		level = new NetworkLevel(defManager.getLevel("l1"),assets);
+		gameListener.level = level;
 		
-		GestureDetector gd = new GestureDetector(level);
-	    Gdx.input.setInputProcessor(gd);
-		//Gdx.input.setInputProcessor(stage);
-	    
 	    stage.addActor(level);
 	    level.start();
-	    
 	}
 
 	@Override

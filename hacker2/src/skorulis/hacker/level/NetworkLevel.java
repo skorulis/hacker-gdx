@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Disposable;
@@ -24,7 +22,7 @@ import skorulis.hacker.def.NodePosDef;
 import skorulis.hacker.def.ConnectionDef;
 import skorulis.hacker.def.LevelDef;
 
-public class NetworkLevel extends Group implements Disposable, GestureListener,
+public class NetworkLevel extends Group implements Disposable,
 		AvatarDelegate {
 
 	private LevelDef def;
@@ -33,9 +31,9 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 	private ArrayList<NetworkConnection> connections;
 	private Avatar playerAvatar;
 	private ShapeRenderer shapeRenderer;
-	private Vector3 translation;
+	public Vector3 translation;
 	private AssetManager assets;
-	private Computer openComputer;
+	public Computer openComputer;
 
 	public NetworkLevel(LevelDef def, AssetManager assets) {
 		this.def = def;
@@ -133,34 +131,15 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 		this.openComputer = node.computer;
 		this.addActor(node.computer);
 	}
-
-	@Override
-	public boolean touchDown(float x, float y, int pointer, int button) {
-		return false;
-	}
-
-	@Override
-	public boolean tap(float x, float y, int count, int button) {
-		x -= translation.x;
-		y += translation.y;
-		y = this.getStage().getHeight() - y;
-		if(openComputer != null) {
-			computerTap(x, y);
-		} else {
-			networkTap(x, y);
-		}
-		
-		return false;
-	}
 	
-	private void computerTap(float x, float y) {
+	public void computerTap(float x, float y) {
 		ComputerSquare cs = openComputer.squareAtLocation(x,y);
 		if(cs != null && playerAvatar.currentSquare() != cs && cs.isPassable()) {
 			playerAvatar.moveTo(cs);
 		}
 	}
 	
-	private void networkTap(float x, float y) {
+	public void networkTap(float x, float y) {
 		for (NetworkNode n : computers) {
 			if (n.hit(x, y, true) != null) {
 				if (n != playerAvatar.currentNode) {
@@ -182,44 +161,7 @@ public class NetworkLevel extends Group implements Disposable, GestureListener,
 		return null;
 	}
 
-	@Override
-	public boolean longPress(float x, float y) {
-		System.out.println("long press");
-		return false;
-	}
 
-	@Override
-	public boolean fling(float velocityX, float velocityY, int button) {
-		System.out.println("fling");
-		return false;
-	}
-
-	@Override
-	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		// System.out.println("pan " + deltaX + "," + deltaY);
-		translation.x += deltaX;
-		translation.y -= deltaY;
-		return false;
-	}
-
-	@Override
-	public boolean panStop(float x, float y, int pointer, int button) {
-		System.out.println("pan stop");
-		return false;
-	}
-
-	@Override
-	public boolean zoom(float initialDistance, float distance) {
-		System.out.println("zoom");
-		return false;
-	}
-
-	@Override
-	public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
-			Vector2 pointer1, Vector2 pointer2) {
-		System.out.println("pinch");
-		return false;
-	}
 
 	public void dispose() {
 

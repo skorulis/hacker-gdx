@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class UIManager {
 
-	private Stage stage;
+	public Stage stage;
 	private GameUI gameUI;
 	private Skin skin;
 	
@@ -28,6 +28,7 @@ public class UIManager {
 	
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height,true);
+		gameUI.resize(width, height);
 	}
 	
 }
