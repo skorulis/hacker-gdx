@@ -1,6 +1,5 @@
 package skorulis.hacker.level;
 
-import skorulis.hacker.def.ConnectionDef;
 import skorulis.hacker.def.LevelDef;
 
 public class LevelBuilder {
@@ -16,7 +15,7 @@ public class LevelBuilder {
 	}
 	
 	public void createConnection(NetworkNode comp1, NetworkNode comp2,String square1, String square2) {
-		ConnectionDef cd = new ConnectionDef(comp1, comp2, square1, square2);
+		NetworkConnection cd = new NetworkConnection(comp1, comp2, square1, square2);
 		level.connections.add(cd);
 	}
 	

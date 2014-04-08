@@ -15,7 +15,6 @@ import skorulis.hacker.avatar.Avatar;
 import skorulis.hacker.avatar.AvatarDelegate;
 import skorulis.hacker.computer.Computer;
 import skorulis.hacker.computer.square.ComputerSquare;
-import skorulis.hacker.def.ConnectionDef;
 import skorulis.hacker.def.LevelDef;
 
 public class NetworkLevel extends Group implements Disposable,
@@ -23,7 +22,6 @@ public class NetworkLevel extends Group implements Disposable,
 
 	private LevelDef def;
 	private ArrayList<Avatar> avatars;
-	private ArrayList<NetworkConnection> connections;
 	private Avatar playerAvatar;
 	
 	public Vector3 translation;
@@ -34,7 +32,6 @@ public class NetworkLevel extends Group implements Disposable,
 
 		translation = new Vector3();
 		avatars = new ArrayList<Avatar>();
-		connections = new ArrayList<NetworkConnection>();
 
 		buildLevel(assets);
 
@@ -52,12 +49,6 @@ public class NetworkLevel extends Group implements Disposable,
 			cd.loadTextures(assets);
 			this.addActor(cd);
 		}
-		for(ConnectionDef cd : this.def.connections) {
-			NetworkConnection connection = new NetworkConnection(cd);
-			connection.node1 = def.findNode(cd.comp1.name());
-			connection.node2 = def.findNode(cd.comp2.name());
-			connections.add(connection);
-		}
 	}
 
 	@Override
@@ -69,8 +60,8 @@ public class NetworkLevel extends Group implements Disposable,
 		def.shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		def.shapeRenderer.begin(ShapeType.Line);
 		def.shapeRenderer.setColor(Color.RED);
-		for (NetworkConnection nc : connections) {
-			def.shapeRenderer.line(nc.def.comp1.location, nc.def.comp2.location);
+		for (NetworkConnection nc : def.connections) {
+			def.shapeRenderer.line(nc.node1.location, nc.node2.location);
 		}
 		def.shapeRenderer.end();
 
@@ -127,7 +118,7 @@ public class NetworkLevel extends Group implements Disposable,
 	}
 	
 	public NetworkConnection findConnection(NetworkNode node1, NetworkNode node2) {
-		for(NetworkConnection con : connections) {
+		for(NetworkConnection con : def.connections) {
 			if(con.hasNodes(node1, node2)) {
 				return con;
 			}
