@@ -17,6 +17,10 @@ public class ComputerSquare extends Actor {
 	public CompSquareDef def;
 	private TextureRegion[] textures;
 	
+	public ComputerSquare(AssetManager assets) {
+		
+	}
+	
 	public ComputerSquare(CompSquareDef def,AssetManager assets) {
 		this.def = def;
 		textures = new TextureRegion[def.layers.size()];
