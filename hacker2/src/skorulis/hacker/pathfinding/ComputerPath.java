@@ -2,7 +2,7 @@ package skorulis.hacker.pathfinding;
 
 import java.util.List;
 
-import skorulis.hacker.def.square.ComputerSquare;
+import skorulis.hacker.computer.square.ComputerSquare;
 
 import com.badlogic.gdx.math.Vector2;
 

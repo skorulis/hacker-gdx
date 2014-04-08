@@ -17,10 +17,10 @@ import skorulis.hacker.avatar.AvatarDelegate;
 import skorulis.hacker.computer.Computer;
 import skorulis.hacker.computer.NetworkConnection;
 import skorulis.hacker.computer.NetworkNode;
+import skorulis.hacker.computer.square.ComputerSquare;
 import skorulis.hacker.def.NodePosDef;
 import skorulis.hacker.def.ConnectionDef;
 import skorulis.hacker.def.LevelDef;
-import skorulis.hacker.def.square.ComputerSquare;
 
 public class NetworkLevel extends Group implements Disposable,
 		AvatarDelegate {

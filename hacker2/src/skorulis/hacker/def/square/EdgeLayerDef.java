@@ -1,5 +1,8 @@
 package skorulis.hacker.def.square;
 
+import skorulis.hacker.computer.square.CompSquareTexture;
+import skorulis.hacker.computer.square.ComputerSquare;
+
 public class EdgeLayerDef extends TerrainLayerDef {
 
 	public EdgeLayerDef(String name, TerrainType type) {

@@ -1,14 +1,13 @@
 package skorulis.hacker.computer;
 
-import skorulis.hacker.def.ComputerDef;
-import skorulis.hacker.def.square.CompSquareLayer;
+import skorulis.hacker.computer.square.CompSquareLayer;
 import skorulis.hacker.def.square.TerrainLayerDef;
 
 public class ComputerBuilder {
 
-	public ComputerDef computer;
+	public Computer computer;
 	
-	public ComputerBuilder(ComputerDef computer) {
+	public ComputerBuilder(Computer computer) {
 		this.computer = computer;
 	}
 	

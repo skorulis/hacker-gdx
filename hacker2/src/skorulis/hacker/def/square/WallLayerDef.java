@@ -1,5 +1,8 @@
 package skorulis.hacker.def.square;
 
+import skorulis.hacker.computer.square.CompSquareTexture;
+import skorulis.hacker.computer.square.ComputerSquare;
+
 public class WallLayerDef extends TerrainLayerDef {
 
 	public String textureHorizontal;

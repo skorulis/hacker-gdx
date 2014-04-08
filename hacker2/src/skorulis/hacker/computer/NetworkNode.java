@@ -24,7 +24,8 @@ public class NetworkNode extends Actor {
 		this.setSize(texture.getWidth(), texture.getHeight());
 
 		if (def.computer != null) {
-			this.computer = new Computer(def.computer, assets);
+			this.computer = def.computer;
+			this.computer.loadTextures(assets);
 		}
 		connections = new ArrayList<NetworkConnection>();
 

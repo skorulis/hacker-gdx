@@ -1,6 +1,6 @@
 package skorulis.hacker.pathfinding;
 
-import skorulis.hacker.def.square.ComputerSquare;
+import skorulis.hacker.computer.square.ComputerSquare;
 
 
 public class PathNodeInfo {

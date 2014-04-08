@@ -2,22 +2,21 @@ package skorulis.hacker.computer;
 
 import java.util.HashMap;
 
-import skorulis.hacker.def.ComputerDef;
 import skorulis.hacker.def.DefManager;
 
 public class ComputerManager {
 
 	private final DefManager def;
-	private HashMap<String, ComputerDef> computers;
+	private HashMap<String, Computer> computers;
 	
 	public ComputerManager(DefManager def) {
 		this.def = def;
-		computers = new HashMap<String, ComputerDef>();
+		computers = new HashMap<String, Computer>();
 		createComputers();
 	}
 	
 	private void createComputers() {
-		ComputerBuilder builder = new ComputerBuilder(new ComputerDef("comp1", 7, 7));
+		ComputerBuilder builder = new ComputerBuilder(new Computer("comp1", 7, 7));
 		builder.fillWith(def.getSquare("floor"));
 		builder.makeEdgeWall(def.getSquare("wall"));
 		builder.makeYWall(def.getSquare("wall"), 2, builder.height()-1, 2);
@@ -30,12 +29,12 @@ public class ComputerManager {
 		addComputer(builder.computer);
 	}
 	
-	public void addComputer(ComputerDef cd) {
+	public void addComputer(Computer cd) {
 		computers.put(cd.name(), cd);
 	}
 	
-	public ComputerDef getComputer(String name) {
-		ComputerDef comp = computers.get(name);
+	public Computer getComputer(String name) {
+		Computer comp = computers.get(name);
 		if(comp == null) {
 			throw new IllegalArgumentException("No computer named " + name);
 		}

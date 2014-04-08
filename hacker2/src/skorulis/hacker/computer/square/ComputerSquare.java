@@ -1,7 +1,8 @@
-package skorulis.hacker.def.square;
+package skorulis.hacker.computer.square;
 
 import java.util.ArrayList;
 
+import skorulis.hacker.def.square.TerrainLayerDef;
 import skorulis.hacker.def.square.TerrainLayerDef.TerrainType;
 
 import com.badlogic.gdx.assets.AssetManager;

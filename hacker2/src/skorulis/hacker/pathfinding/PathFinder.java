@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import skorulis.hacker.computer.Computer;
-import skorulis.hacker.def.square.ComputerSquare;
+import skorulis.hacker.computer.square.ComputerSquare;
 
 public class PathFinder {
 

@@ -1,5 +1,7 @@
 package skorulis.hacker.def.square;
 
+import skorulis.hacker.computer.square.CompSquareTexture;
+import skorulis.hacker.computer.square.ComputerSquare;
 import skorulis.hacker.def.BaseDef;
 
 public class TerrainLayerDef extends BaseDef {

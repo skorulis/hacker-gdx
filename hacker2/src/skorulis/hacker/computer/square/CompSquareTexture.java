@@ -1,4 +1,4 @@
-package skorulis.hacker.def.square;
+package skorulis.hacker.computer.square;
 
 public class CompSquareTexture {
 
