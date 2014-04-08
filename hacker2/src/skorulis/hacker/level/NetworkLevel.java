@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
@@ -27,51 +26,39 @@ public class NetworkLevel extends Group implements Disposable,
 	private ArrayList<Avatar> avatars;
 	private ArrayList<NetworkConnection> connections;
 	private Avatar playerAvatar;
-	private ShapeRenderer shapeRenderer;
+	
 	public Vector3 translation;
-	private AssetManager assets;
 	private Computer openComputer;
 
 	public NetworkLevel(LevelDef def, AssetManager assets) {
 		this.def = def;
-		this.assets = assets;
 
 		translation = new Vector3();
 		avatars = new ArrayList<Avatar>();
 		connections = new ArrayList<NetworkConnection>();
 
-		buildLevel();
+		buildLevel(assets);
 
-		shapeRenderer = new ShapeRenderer();		
 	}
 	
 	public void start() {
-		playerAvatar = new Avatar(findEntryComputer(), this);
+		playerAvatar = new Avatar(def.findEntryComputer(), this);
 		this.addActor(playerAvatar);
 		avatars.add(playerAvatar);
 		avatarDidReachNode(playerAvatar, playerAvatar.currentNode,null);
 	}
 
-	private void buildLevel() {
+	private void buildLevel(AssetManager assets) {
 		for (NetworkNode cd : this.def.computers) {
 			cd.loadTextures(assets);
 			this.addActor(cd);
 		}
 		for(ConnectionDef cd : this.def.connections) {
 			NetworkConnection connection = new NetworkConnection(cd);
-			connection.node1 = findNode(cd.comp1.name());
-			connection.node2 = findNode(cd.comp2.name());
+			connection.node1 = def.findNode(cd.comp1.name());
+			connection.node2 = def.findNode(cd.comp2.name());
 			connections.add(connection);
 		}
-	}
-	
-	public NetworkNode findNode(String name) {
-		for(NetworkNode node : def.computers) {
-			if(node.name().equals(name)) {
-				return node;
-			}
-		}
-		throw new IllegalArgumentException("Could not find node " + name);
 	}
 
 	@Override
@@ -79,28 +66,21 @@ public class NetworkLevel extends Group implements Disposable,
 		Matrix4 transform = new Matrix4();
 		transform.translate(translation);
 		batch.end();
-		shapeRenderer.setTransformMatrix(transform);
-		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-		shapeRenderer.begin(ShapeType.Line);
-		shapeRenderer.setColor(Color.RED);
+		def.shapeRenderer.setTransformMatrix(transform);
+		def.shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+		def.shapeRenderer.begin(ShapeType.Line);
+		def.shapeRenderer.setColor(Color.RED);
 		for (NetworkConnection nc : connections) {
-			shapeRenderer.line(nc.def.comp1.location, nc.def.comp2.location);
+			def.shapeRenderer.line(nc.def.comp1.location, nc.def.comp2.location);
 		}
-		shapeRenderer.end();
+		def.shapeRenderer.end();
 
 		batch.begin();
 		batch.setTransformMatrix(transform);
 		drawChildren(batch, parentAlpha);
 	}
 
-	public NetworkNode findEntryComputer() {
-		for (NetworkNode c : def.computers) {
-			if (c.name().equals(def.entryComputer.name())) {
-				return c;
-			}
-		}
-		return null;
-	}
+	
 
 	@Override
 	public void avatarDidReachNode(Avatar avatar, NetworkNode node, NetworkConnection connection) {
