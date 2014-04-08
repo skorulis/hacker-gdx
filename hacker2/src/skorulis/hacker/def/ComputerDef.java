@@ -41,6 +41,13 @@ public class ComputerDef extends BaseDef {
 		}
 	}
 	
+	public void makeEdgeWall(TerrainLayerDef layer) {
+		makeXWall(layer, 0, width-1, 0);
+		makeXWall(layer, 0, width-1, height-1);
+		makeYWall(layer, 0, height-1, 0);
+		makeYWall(layer, 0, height-1, width-1);
+	}
+	
 	public CompSquareLayer place(TerrainLayerDef layer, int x, int y) {
 		return squares[y][x].place(layer);
 	}

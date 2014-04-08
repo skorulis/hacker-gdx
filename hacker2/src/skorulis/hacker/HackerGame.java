@@ -4,6 +4,8 @@ import java.util.List;
 
 import skorulis.hacker.def.DefManager;
 import skorulis.hacker.level.NetworkLevel;
+import skorulis.hacker.ui.MainUI;
+import skorulis.hacker.ui.UIManager;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -21,6 +23,7 @@ public class HackerGame implements ApplicationListener {
 	private NetworkLevel level;
 	private AssetManager assets;
 	private boolean loading;
+	private UIManager ui;
 	
 	@Override
 	public void create() {		
@@ -34,6 +37,8 @@ public class HackerGame implements ApplicationListener {
 		
 		stage = new Stage(new ScreenViewport());
 		loading = true;
+		
+		ui = new UIManager();
 	}
 	
 	private void startLevel() {
@@ -45,6 +50,7 @@ public class HackerGame implements ApplicationListener {
 	    
 	    stage.addActor(level);
 	    level.start();
+	    
 	}
 
 	@Override
@@ -58,14 +64,18 @@ public class HackerGame implements ApplicationListener {
 			}
 			return;
 		}
-		
-		stage.act(Gdx.graphics.getDeltaTime());
+		float delta = Gdx.graphics.getDeltaTime();
+		stage.act(delta);
 	    stage.draw();
+	    
+	    ui.render();
+	    ui.update(delta);
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height, true);
+		ui.resize(width, height);
 	}
 
 	@Override

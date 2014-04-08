@@ -60,14 +60,11 @@ public class DefManager {
 	}
 	
 	private void createComputers() {
-		ComputerDef cd = new ComputerDef("comp1", 5, 5);
+		ComputerDef cd = new ComputerDef("comp1", 7, 7);
 		cd.fillWith(getSquare("floor"));
-		cd.makeXWall(getSquare("wall"), 0, 4, 0);
-		cd.makeXWall(getSquare("wall"), 0, 4, 4);
-		cd.makeYWall(getSquare("wall"), 0, 4, 0);
-		cd.makeYWall(getSquare("wall"), 0, 4, 4);
-		cd.place(getSquare("connection"), 0, 2).id = "con1";
-		cd.place(getSquare("connection"), 4, 2).id = "con2";
+		cd.makeEdgeWall(getSquare("wall"));
+		cd.place(getSquare("connection"), 0, 3).id = "con1";
+		cd.place(getSquare("connection"), cd.width-1, 3).id = "con2";
 		cd.place(getSquare("wall"), 2, 2);
 		
 		cd.assignTextures();
