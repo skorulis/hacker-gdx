@@ -1,6 +1,6 @@
 package skorulis.hacker.computer;
 
-import skorulis.hacker.computer.square.CompSquareLayer;
+import skorulis.hacker.computer.square.layer.CompSquareLayer;
 import skorulis.hacker.computer.square.ComputerSquare;
 import skorulis.hacker.def.terrain.TerrainLayerDef;
 

@@ -2,9 +2,9 @@ package skorulis.hacker.computer.square;
 
 import java.util.ArrayList;
 
-import skorulis.hacker.def.terrain.TerrainLayerDef;
 import skorulis.hacker.def.terrain.TerrainLayerDef.TerrainAction;
 import skorulis.hacker.def.terrain.TerrainLayerDef.TerrainType;
+import skorulis.hacker.computer.square.layer.CompSquareLayer;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;

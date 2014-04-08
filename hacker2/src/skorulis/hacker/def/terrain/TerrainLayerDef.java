@@ -1,6 +1,6 @@
 package skorulis.hacker.def.terrain;
 
-import skorulis.hacker.computer.square.CompSquareLayer;
+import skorulis.hacker.computer.square.layer.CompSquareLayer;
 import skorulis.hacker.computer.square.CompSquareTexture;
 import skorulis.hacker.computer.square.ComputerSquare;
 import skorulis.hacker.def.BaseDef;
@@ -21,7 +21,7 @@ public class TerrainLayerDef extends BaseDef {
 	public TerrainAction action;
 	public TerrainType type;
 	public String textureMain;
-	public Class<CompSquareLayer> layerClass;
+	public Class<? extends CompSquareLayer> layerClass;
 	
 	public TerrainLayerDef(String name,TerrainType type) {
 		super(name);

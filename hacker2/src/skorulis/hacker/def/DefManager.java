@@ -7,8 +7,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import skorulis.hacker.computer.square.layer.ConnectionLayer;
 import skorulis.hacker.def.terrain.EdgeLayerDef;
 import skorulis.hacker.def.terrain.TerrainLayerDef;
+import skorulis.hacker.def.terrain.TerrainLayerDef.TerrainAction;
 import skorulis.hacker.def.terrain.WallLayerDef;
 import skorulis.hacker.def.terrain.TerrainLayerDef.TerrainType;
 
@@ -41,6 +43,8 @@ public class DefManager {
 		
 		EdgeLayerDef eld = new EdgeLayerDef("connection", TerrainType.PASSABLE);
 		eld.textureMain = "data/node_n.png";
+		eld.action = TerrainAction.EXIT;
+		eld.layerClass = ConnectionLayer.class;
 		addDef(eld);
 	}
 	

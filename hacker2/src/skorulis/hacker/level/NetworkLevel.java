@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import skorulis.hacker.avatar.Avatar;
 import skorulis.hacker.avatar.AvatarDelegate;
 import skorulis.hacker.computer.Computer;
-import skorulis.hacker.computer.square.CompSquareLayer;
+import skorulis.hacker.computer.square.layer.CompSquareLayer;
+import skorulis.hacker.computer.square.layer.ConnectionLayer;
 import skorulis.hacker.computer.square.ComputerSquare;
 import skorulis.hacker.def.terrain.TerrainLayerDef.TerrainAction;
 
@@ -125,8 +126,19 @@ public class NetworkLevel extends Group implements AvatarDelegate {
 	public void avatarDidPerformAction(Avatar avatar, Computer computer, ComputerSquare square) {
 		CompSquareLayer layer = square.getActionLayer();
 		if(layer != null) {
-			
+			if(layer.def.action == TerrainAction.EXIT) {
+				exitComputer(avatar, computer, square, (ConnectionLayer) layer);
+			}
 		}
+	}
+	
+	private void exitComputer(Avatar avatar, Computer computer, ComputerSquare square, ConnectionLayer layer) {
+		closeComputer(computer);
+	}
+	
+	private void closeComputer(Computer computer) {
+		this.openComputer = null;
+		this.removeActor(computer);
 	}
 	
 	private void openComputer(NetworkNode node) {
