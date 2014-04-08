@@ -18,7 +18,7 @@ public class TerrainLayerDef extends BaseDef {
 		this.type = type;
 	}
 	
-	public CompSquareTexture calculateTexture(CompSquareDef north, CompSquareDef east, CompSquareDef south, CompSquareDef west) {
+	public CompSquareTexture calculateTexture(ComputerSquare north, ComputerSquare east, ComputerSquare south, ComputerSquare west) {
 		return new CompSquareTexture(textureMain);
 	}
 	

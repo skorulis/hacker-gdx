@@ -11,13 +11,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class CompSquareDef extends Actor {
+public class ComputerSquare extends Actor {
 	
 	public ArrayList<CompSquareLayer> layers;
 	private TextureRegion[] textures;
 	public static int SQUARE_SIZE = 32;
 	
-	public CompSquareDef() {
+	public ComputerSquare() {
 		layers = new ArrayList<CompSquareLayer>();
 	}
 	
@@ -81,7 +81,7 @@ public class CompSquareDef extends Actor {
 		return addLayer(layer);
 	}
 	
-	public void assignTextures(CompSquareDef north,CompSquareDef east, CompSquareDef south, CompSquareDef west) {
+	public void assignTextures(ComputerSquare north,ComputerSquare east, ComputerSquare south, ComputerSquare west) {
 		for(CompSquareLayer layer : layers) {
 			layer.calculateTexture(north, east, south, west);
 		}

@@ -10,7 +10,7 @@ public class CompSquareLayer {
 		this.def = def;
 	}
 	
-	public void calculateTexture(CompSquareDef north,CompSquareDef east, CompSquareDef south, CompSquareDef west) {
+	public void calculateTexture(ComputerSquare north,ComputerSquare east, ComputerSquare south, ComputerSquare west) {
 		texture = def.calculateTexture(north, east, south, west);
 	}
 	

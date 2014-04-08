@@ -1,6 +1,6 @@
 package skorulis.hacker.pathfinding;
 
-import skorulis.hacker.computer.ComputerSquare;
+import skorulis.hacker.def.square.ComputerSquare;
 
 import com.badlogic.gdx.math.Vector2;
 

@@ -1,9 +1,11 @@
 package skorulis.hacker.pathfinding;
 
 import java.util.List;
+
+import skorulis.hacker.def.square.ComputerSquare;
+
 import com.badlogic.gdx.math.Vector2;
 
-import skorulis.hacker.computer.ComputerSquare;
 
 public class ComputerPath {
 

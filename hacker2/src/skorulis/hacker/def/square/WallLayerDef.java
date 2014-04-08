@@ -12,7 +12,7 @@ public class WallLayerDef extends TerrainLayerDef {
 		super(name,type);
 	}
 	
-	public CompSquareTexture calculateTexture(CompSquareDef north, CompSquareDef east, CompSquareDef south, CompSquareDef west) {
+	public CompSquareTexture calculateTexture(ComputerSquare north, ComputerSquare east, ComputerSquare south, ComputerSquare west) {
 		boolean hasNorth = north != null && north.hasLayer(name);
 		boolean hasSouth = south != null && south.hasLayer(name);
 		boolean hasEast = east != null && east.hasLayer(name);

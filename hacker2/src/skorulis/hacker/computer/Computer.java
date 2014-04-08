@@ -5,22 +5,21 @@ import java.util.ArrayList;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
+
 import skorulis.hacker.def.ComputerDef;
 import skorulis.hacker.def.square.CompSquareLayer;
+import skorulis.hacker.def.square.ComputerSquare;
 
 public class Computer extends Group {
 	
 	public ComputerDef def;
-	public ComputerSquare squares[][];
 	
 	public Computer(ComputerDef def, AssetManager assets) {
 		this.def = def;
-		squares = new ComputerSquare[def.height][def.width];
 		for(int i = 0; i < def.height; ++i) { 
 			for(int j = 0; j < def.width; ++j) {
-				squares[i][j] = new ComputerSquare(def.squares[i][j], assets);
-				squares[i][j].setPosition(j*ComputerSquare.SQUARE_SIZE, i*ComputerSquare.SQUARE_SIZE);
-				this.addActor(squares[i][j]);
+				def.squares[i][j].loadTextures(assets);
+				this.addActor(def.squares[i][j]);
 			}
 		}
 	}
@@ -38,15 +37,15 @@ public class Computer extends Group {
 		if(x >= def.width || y >= def.height) {
 			return null;
 		}
-		return squares[y][x];
+		return def.squares[y][x];
 	}
 	
 	public ComputerSquare findSquare(String id) {
 		for(int i = 0; i < def.height; ++i) { 
 			for(int j = 0; j < def.width; ++j) {
-				for(CompSquareLayer csl : squares[i][j].def.layers) {
+				for(CompSquareLayer csl : def.squares[i][j].layers) {
 					if(id.equals(csl.id)) {
-						return squares[i][j];
+						return def.squares[i][j];
 					}
 				}
 			}
@@ -68,7 +67,7 @@ public class Computer extends Group {
 				if(i == y && j == x) {
 					continue;
 				}
-				ret.add(squares[i][j]);
+				ret.add(def.squares[i][j]);
 			}
 		}
 		return ret;

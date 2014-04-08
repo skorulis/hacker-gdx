@@ -1,9 +1,9 @@
 package skorulis.hacker.avatar;
 
 import skorulis.hacker.computer.Computer;
-import skorulis.hacker.computer.ComputerSquare;
 import skorulis.hacker.computer.NetworkConnection;
 import skorulis.hacker.computer.NetworkNode;
+import skorulis.hacker.def.square.ComputerSquare;
 import skorulis.hacker.pathfinding.ComputerPath;
 import skorulis.hacker.pathfinding.MovementInfo;
 import skorulis.hacker.pathfinding.PathFinder;

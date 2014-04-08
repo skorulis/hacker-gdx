@@ -6,7 +6,7 @@ public class EdgeLayerDef extends TerrainLayerDef {
 		super(name,type);
 	}
 	
-	public CompSquareTexture calculateTexture(CompSquareDef north, CompSquareDef east, CompSquareDef south, CompSquareDef west) {
+	public CompSquareTexture calculateTexture(ComputerSquare north, ComputerSquare east, ComputerSquare south, ComputerSquare west) {
 		if(north == null) {
 			return new CompSquareTexture(textureMain);
 		} else if(east == null) {

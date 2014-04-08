@@ -15,12 +15,12 @@ import com.badlogic.gdx.utils.Disposable;
 import skorulis.hacker.avatar.Avatar;
 import skorulis.hacker.avatar.AvatarDelegate;
 import skorulis.hacker.computer.Computer;
-import skorulis.hacker.computer.ComputerSquare;
 import skorulis.hacker.computer.NetworkConnection;
 import skorulis.hacker.computer.NetworkNode;
 import skorulis.hacker.def.NodePosDef;
 import skorulis.hacker.def.ConnectionDef;
 import skorulis.hacker.def.LevelDef;
+import skorulis.hacker.def.square.ComputerSquare;
 
 public class NetworkLevel extends Group implements Disposable,
 		AvatarDelegate {
