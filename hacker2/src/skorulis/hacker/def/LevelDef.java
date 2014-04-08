@@ -2,8 +2,6 @@ package skorulis.hacker.def;
 
 import java.util.ArrayList;
 
-import skorulis.hacker.def.square.CompSquareDef;
-
 public class LevelDef extends BaseDef {
 
 	public ArrayList<NodePosDef> computers;

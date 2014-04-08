@@ -4,7 +4,6 @@ import java.util.List;
 
 import skorulis.hacker.def.DefManager;
 import skorulis.hacker.level.NetworkLevel;
-import skorulis.hacker.ui.MainUI;
 import skorulis.hacker.ui.UIManager;
 
 import com.badlogic.gdx.ApplicationListener;
