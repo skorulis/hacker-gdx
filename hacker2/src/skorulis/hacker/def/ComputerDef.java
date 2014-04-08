@@ -21,37 +21,6 @@ public class ComputerDef extends BaseDef {
 		}
 	}
 	
-	public void fillWith(TerrainLayerDef layer) {
-		for(int i = 0 ; i < height; ++i) {
-			for(int j = 0; j < width; ++j) {
-				squares[i][j].addLayer(layer);
-			}
-		}
-	}
-	
-	public void makeXWall(TerrainLayerDef layer, int x1, int x2, int y) {
-		for(int i = x1; i <= x2; ++i) {
-			squares[y][i].addLayer(layer);
-		}
-	}
-	
-	public void makeYWall(TerrainLayerDef layer, int y1, int y2, int x) {
-		for(int i = y1; i <= y2; ++i) {
-			squares[i][x].addLayer(layer);
-		}
-	}
-	
-	public void makeEdgeWall(TerrainLayerDef layer) {
-		makeXWall(layer, 0, width-1, 0);
-		makeXWall(layer, 0, width-1, height-1);
-		makeYWall(layer, 0, height-1, 0);
-		makeYWall(layer, 0, height-1, width-1);
-	}
-	
-	public CompSquareLayer place(TerrainLayerDef layer, int x, int y) {
-		return squares[y][x].place(layer);
-	}
-	
 	public void assignTextures() {
 		CompSquareDef square;
 		CompSquareDef north,south,east, west;

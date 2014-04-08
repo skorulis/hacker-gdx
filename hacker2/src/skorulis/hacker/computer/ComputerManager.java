@@ -17,17 +17,17 @@ public class ComputerManager {
 	}
 	
 	private void createComputers() {
-		ComputerDef cd = new ComputerDef("comp1", 7, 7);
-		cd.fillWith(def.getSquare("floor"));
-		cd.makeEdgeWall(def.getSquare("wall"));
-		cd.makeYWall(def.getSquare("wall"), 2, cd.height-1, 2);
-		cd.makeYWall(def.getSquare("wall"), 2, cd.height-1, 4);
-		cd.place(def.getSquare("connection"), 0, 3).id = "con1";
-		cd.place(def.getSquare("connection"), cd.width-1, 3).id = "con2";
-		cd.place(def.getSquare("wall"), 2, 2);
+		ComputerBuilder builder = new ComputerBuilder(new ComputerDef("comp1", 7, 7));
+		builder.fillWith(def.getSquare("floor"));
+		builder.makeEdgeWall(def.getSquare("wall"));
+		builder.makeYWall(def.getSquare("wall"), 2, builder.height()-1, 2);
+		builder.makeYWall(def.getSquare("wall"), 2, builder.height()-1, 4);
+		builder.place(def.getSquare("connection"), 0, 3).id = "con1";
+		builder.place(def.getSquare("connection"), builder.width()-1, 3).id = "con2";
+		builder.place(def.getSquare("wall"), 2, 2);
 		
-		cd.assignTextures();
-		addComputer(cd);
+		builder.computer.assignTextures();
+		addComputer(builder.computer);
 	}
 	
 	public void addComputer(ComputerDef cd) {
