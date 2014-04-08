@@ -18,107 +18,109 @@ public class Avatar extends Actor {
 
 	private Texture texture;
 	private AvatarDelegate delegate;
-	
-	//Network data
+
+	// Network data
 	public NetworkNode currentNode;
 	public NetworkConnection currentConnection;
 	public NetworkNode destinationNode;
-	
-	//Computer data
+
+	// Computer data
 	public Computer currentComputer;
 	private ComputerSquare currentSquare;
 	public ComputerSquare destinationSquare;
 	public ComputerPath currentPath;
-	
+
 	public MovementInfo movement;
 
 	public float speed = 200;
-	
-	public Avatar(NetworkNode computer,AvatarDelegate delegate) {
+
+	public Avatar(NetworkNode computer, AvatarDelegate delegate) {
 		this.currentNode = computer;
 		this.delegate = delegate;
 		texture = new Texture(Gdx.files.internal("data/eye.png"));
 		this.setLocation(computer.location);
 	}
-	
+
 	public void draw(Batch batch, float alpha) {
 		batch.draw(texture, getX(), getY());
 	}
-	
+
 	public void setLocation(Vector2 loc) {
-		this.setPosition(loc.x - texture.getWidth()/2, loc.y - texture.getHeight()/2);
+		this.setPosition(loc.x - texture.getWidth() / 2,
+				loc.y - texture.getHeight() / 2);
 	}
-	
+
 	public void travelTo(NetworkNode c) {
 		destinationNode = c;
-		movement = new MovementInfo(currentNode.location, destinationNode.location, speed);
+		movement = new MovementInfo(currentNode.location,
+				destinationNode.location, speed);
 	}
-	
+
 	public void travelAlong(NetworkConnection connection) {
 		currentConnection = connection;
 		travelTo(connection.otherNode(currentNode));
 	}
-	
+
 	public void moveTo(ComputerSquare square) {
 		destinationSquare = square;
-		PathFinder finder = new PathFinder(currentComputer,currentSquare(),destinationSquare);
+		PathFinder finder = new PathFinder(currentComputer, currentSquare(),
+				destinationSquare);
 		currentPath = finder.generatePath();
-		if(movement == null) {
-			movement = currentPath.getMovement(speed/2 );
+		if (movement == null) {
+			movement = currentPath.getMovement(speed / 2);
 		}
 	}
-	
+
 	public void act(float delta) {
-		if(destinationNode != null) {
+		if (destinationNode != null) {
 			moveInNetwork(delta);
-		} else if(currentPath != null) {
+		} else if (currentPath != null) {
 			moveInComputer(delta);
 		}
 	}
-	
+
 	private void moveInNetwork(float delta) {
 		setLocation(movement.update(delta));
-		if(movement.finished()) {
+		if (movement.finished()) {
 			currentNode = destinationNode;
 			destinationNode = null;
-			delegate.avatarDidReachNode(this,currentNode,currentConnection);
+			delegate.avatarDidReachNode(this, currentNode, currentConnection);
 			currentConnection = null;
 			movement = null;
 		}
 	}
-	
+
 	private void moveInComputer(float delta) {
 		setLocation(movement.update(delta));
-		if(movement.finished()) {
+		if (movement.finished()) {
 			currentSquare = movement.destSquare;
-			if(currentPath.finished()) {
+			if (currentPath.finished()) {
 				movement = null;
 				currentPath = null;
 			} else {
-				if(movement.destSquare == currentPath.nextNode()) {
-					movement = currentPath.next(speed/2);
+				if (movement.destSquare == currentPath.nextNode()) {
+					movement = currentPath.next(speed / 2);
 				} else {
-					movement = currentPath.getMovement(speed/2);
+					movement = currentPath.getMovement(speed / 2);
 				}
-				
+
 			}
 		}
 	}
-	
+
 	public void setCurrentSquare(ComputerSquare sq) {
 		this.currentSquare = sq;
 	}
-	
+
 	public ComputerSquare currentSquare() {
-		if(movement !=null) {
+		if (movement != null) {
 			return movement.destSquare;
 		}
 		return this.currentSquare;
 	}
-	
+
 	public void performAction() {
-		
+		delegate.avatarDidPerformAction(this, currentComputer, currentSquare);
 	}
-	
-	
+
 }

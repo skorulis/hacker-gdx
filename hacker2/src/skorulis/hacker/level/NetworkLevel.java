@@ -6,6 +6,7 @@ import skorulis.hacker.avatar.Avatar;
 import skorulis.hacker.avatar.AvatarDelegate;
 import skorulis.hacker.computer.Computer;
 import skorulis.hacker.computer.square.ComputerSquare;
+import skorulis.hacker.def.square.TerrainLayerDef.TerrainAction;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
@@ -101,8 +102,6 @@ public class NetworkLevel extends Group implements AvatarDelegate {
 		drawChildren(batch, parentAlpha);
 	}
 
-	
-
 	@Override
 	public void avatarDidReachNode(Avatar avatar, NetworkNode node, NetworkConnection connection) {
 		if (avatar == playerAvatar) {
@@ -119,6 +118,12 @@ public class NetworkLevel extends Group implements AvatarDelegate {
 				avatar.setPosition(cs.getX(), cs.getY());
 				openComputer(avatar.currentNode);
 			}
+		}
+	}
+	
+	public void avatarDidPerformAction(Avatar avatar, Computer computer, ComputerSquare square) {
+		TerrainAction action = square.getAction();
+		if(action == TerrainAction.EXIT) {
 			
 		}
 	}

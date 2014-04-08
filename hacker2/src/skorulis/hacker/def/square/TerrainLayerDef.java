@@ -6,18 +6,25 @@ import skorulis.hacker.def.BaseDef;
 
 public class TerrainLayerDef extends BaseDef {
 
+	public enum TerrainAction {
+		NONE,
+		EXIT
+	}
+	
 	public enum TerrainType {
 		GROUND,
 		SOLID,
 		PASSABLE,
 	}
 	
+	public TerrainAction action;
 	public TerrainType type;
 	public String textureMain;
 	
 	public TerrainLayerDef(String name,TerrainType type) {
 		super(name);
 		this.type = type;
+		this.action = TerrainAction.NONE;
 	}
 	
 	public CompSquareTexture calculateTexture(ComputerSquare north, ComputerSquare east, ComputerSquare south, ComputerSquare west) {

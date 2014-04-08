@@ -3,6 +3,7 @@ package skorulis.hacker.computer.square;
 import java.util.ArrayList;
 
 import skorulis.hacker.def.square.TerrainLayerDef;
+import skorulis.hacker.def.square.TerrainLayerDef.TerrainAction;
 import skorulis.hacker.def.square.TerrainLayerDef.TerrainType;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -96,5 +97,16 @@ public class ComputerSquare extends Actor {
 		}
 		return false;
 	}
+	
+	public TerrainAction getAction() {
+		for(CompSquareLayer layer : layers) {
+			if(layer.def.action != TerrainAction.NONE) {
+				return layer.def.action;
+			}
+		}
+		return TerrainAction.NONE;
+	}
+	
+	
 	
 }
