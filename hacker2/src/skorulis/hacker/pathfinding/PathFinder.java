@@ -35,8 +35,7 @@ public class PathFinder {
 				return buildPath(pni);
 			} else {
 				evaluate(pni);
-			}
-			
+			}	
 		}
 		
 		return null;
@@ -74,29 +73,38 @@ public class PathFinder {
 			if(!cs.isPassable()) {
 				continue;
 			}
-			if(!hasNode(cs)) {
-				PathNodeInfo pni = new PathNodeInfo(cs,parentNode);
-				pni.value = parentNode.value + calculateHeuristic(parentNode.square, pni.square);
-				pni.heuristic = calculateHeuristic(pni.square, to);
+			
+			PathNodeInfo pni = new PathNodeInfo(cs,parentNode);
+			pni.value = parentNode.value + calculateHeuristic(parentNode.square, pni.square);
+			pni.heuristic = calculateHeuristic(pni.square, to);
+			PathNodeInfo match = findNode(cs);
+			
+			if(match == null) {
 				openList.add(pni);
+			} else {
+				if(pni.value < match.value) {
+					openList.remove(match);
+					closedList.remove(match);
+					openList.add(pni);
+				}
 			}
 		}
 	}
 	
-	private boolean hasNode(ComputerSquare square) {
+	private PathNodeInfo findNode(ComputerSquare square) {
 		for(PathNodeInfo pni : openList) {
 			if(squaresEqual(pni.square, square)) {
-				return true;
+				return pni;
 			}
 		}
 		
 		for(PathNodeInfo pni : closedList) {
 			if(squaresEqual(pni.square, square)) {
-				return true;
+				return pni;
 			}
 		}
 		
-		return false;
+		return null;
 	}
 	
 	private boolean squaresEqual(ComputerSquare s1, ComputerSquare s2) {
