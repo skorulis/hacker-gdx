@@ -2,68 +2,99 @@ package skorulis.hacker.level;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.utils.Disposable;
-
 import skorulis.hacker.avatar.Avatar;
 import skorulis.hacker.avatar.AvatarDelegate;
 import skorulis.hacker.computer.Computer;
 import skorulis.hacker.computer.square.ComputerSquare;
-import skorulis.hacker.def.LevelDef;
 
-public class NetworkLevel extends Group implements Disposable,
-		AvatarDelegate {
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Group;
 
-	private LevelDef def;
+public class NetworkLevel extends Group implements AvatarDelegate {
+
+	private final String name;
+	
+	public ArrayList<NetworkNode> computers;
+	public ArrayList<NetworkConnection> connections;
+	public NetworkNode entryComputer;
+	public ShapeRenderer shapeRenderer;
+	
 	private ArrayList<Avatar> avatars;
 	private Avatar playerAvatar;
 	
 	public Vector3 translation;
 	private Computer openComputer;
-
-	public NetworkLevel(LevelDef def, AssetManager assets) {
-		this.def = def;
-
+	
+	public NetworkLevel(String name) {
+		this.name = name;
+		computers = new ArrayList<NetworkNode>();
+		connections = new ArrayList<NetworkConnection>();
+		
+		shapeRenderer = new ShapeRenderer();
+		
 		translation = new Vector3();
 		avatars = new ArrayList<Avatar>();
-
-		buildLevel(assets);
-
 	}
 	
 	public void start() {
-		playerAvatar = new Avatar(def.findEntryComputer(), this);
+		playerAvatar = new Avatar(findEntryComputer(), this);
 		this.addActor(playerAvatar);
 		avatars.add(playerAvatar);
 		avatarDidReachNode(playerAvatar, playerAvatar.currentNode,null);
 	}
-
-	private void buildLevel(AssetManager assets) {
-		for (NetworkNode cd : this.def.computers) {
-			cd.loadTextures(assets);
-			this.addActor(cd);
+	
+	public void loadTextures(AssetManager assets) {
+		for(NetworkNode node: computers) {
+			node.loadTextures(assets);
 		}
 	}
-
+	
+	public NetworkNode findComputer(String name) {
+		for(NetworkNode cpd : computers) {
+			if(cpd.name().equals(name)) {
+				return cpd;
+			}
+		}
+		throw new IllegalArgumentException("Could not find computer named " + name);
+	}
+	
+	public NetworkNode findEntryComputer() {
+		for (NetworkNode c : computers) {
+			if (c.name().equals(entryComputer.name())) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
+	public NetworkNode findNode(String name) {
+		for(NetworkNode node : computers) {
+			if(node.name().equals(name)) {
+				return node;
+			}
+		}
+		throw new IllegalArgumentException("Could not find node " + name);
+	}
+	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		Matrix4 transform = new Matrix4();
 		transform.translate(translation);
 		batch.end();
-		def.shapeRenderer.setTransformMatrix(transform);
-		def.shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-		def.shapeRenderer.begin(ShapeType.Line);
-		def.shapeRenderer.setColor(Color.RED);
-		for (NetworkConnection nc : def.connections) {
-			def.shapeRenderer.line(nc.node1.location, nc.node2.location);
+		shapeRenderer.setTransformMatrix(transform);
+		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+		shapeRenderer.begin(ShapeType.Line);
+		shapeRenderer.setColor(Color.RED);
+		for (NetworkConnection nc : connections) {
+			shapeRenderer.line(nc.node1.location, nc.node2.location);
 		}
-		def.shapeRenderer.end();
+		shapeRenderer.end();
 
 		batch.begin();
 		batch.setTransformMatrix(transform);
@@ -105,7 +136,7 @@ public class NetworkLevel extends Group implements Disposable,
 	}
 	
 	public void networkTap(float x, float y) {
-		for (NetworkNode n : def.computers) {
+		for (NetworkNode n : computers) {
 			if (n.hit(x, y, true) != null) {
 				if (n != playerAvatar.currentNode) {
 					NetworkConnection connection = findConnection(playerAvatar.currentNode, n);
@@ -118,7 +149,7 @@ public class NetworkLevel extends Group implements Disposable,
 	}
 	
 	public NetworkConnection findConnection(NetworkNode node1, NetworkNode node2) {
-		for(NetworkConnection con : def.connections) {
+		for(NetworkConnection con : connections) {
 			if(con.hasNodes(node1, node2)) {
 				return con;
 			}
@@ -126,10 +157,6 @@ public class NetworkLevel extends Group implements Disposable,
 		return null;
 	}
 
-	public void dispose() {
-
-	}
-	
 	public Computer openComputer() {
 		return openComputer;
 	}
@@ -137,5 +164,9 @@ public class NetworkLevel extends Group implements Disposable,
 	public Avatar playerAvatar() {
 		return playerAvatar;
 	}
-
+	
+	public String name() {
+		return name;
+	}
+	
 }

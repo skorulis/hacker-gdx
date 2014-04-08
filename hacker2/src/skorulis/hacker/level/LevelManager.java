@@ -4,24 +4,23 @@ import java.util.HashMap;
 
 import skorulis.hacker.computer.ComputerManager;
 import skorulis.hacker.def.DefManager;
-import skorulis.hacker.def.LevelDef;
 
 public class LevelManager {
 
 	private final DefManager def;
 	private final ComputerManager computers;
-	private HashMap<String, LevelDef> levels;
+	private HashMap<String, NetworkLevel> levels;
 	
 	public LevelManager(DefManager def,ComputerManager computers) {
 		this.def = def;
 		this.computers = computers;
-		levels = new HashMap<String, LevelDef>();
+		levels = new HashMap<String, NetworkLevel>();
 		
 		createLevels();
 	}
 	
 	private void createLevels() {
-		LevelDef level = new LevelDef("l1");
+		NetworkLevel level = new NetworkLevel("l1");
 		LevelBuilder builder = new LevelBuilder(level);
 		//level.computers.add(new NodePosDef("c1", getNode("comp"), getComputer("comp1"), 50, 50));
 		NetworkNode comp1 = new NetworkNode("c1", def.getNode("net"),  50, 50); 
@@ -35,12 +34,12 @@ public class LevelManager {
 		addLevel(level);
 	}
 	
-	private void addLevel(LevelDef level) {
+	private void addLevel(NetworkLevel level) {
 		levels.put(level.name(), level);
 	}
 	
-	public LevelDef getLevel(String name) {
-		LevelDef level = levels.get(name);
+	public NetworkLevel getLevel(String name) {
+		NetworkLevel level = levels.get(name);
 		if(level == null) {
 			throw new IllegalArgumentException("No level named " + name);
 		}

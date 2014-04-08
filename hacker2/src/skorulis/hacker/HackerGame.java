@@ -54,7 +54,9 @@ public class HackerGame implements ApplicationListener {
 	}
 	
 	private void startLevel() {
-		level = new NetworkLevel(levelManager.getLevel("l1"),assets);
+		level = levelManager.getLevel("l1");
+		level.loadTextures(assets);
+		level.start();
 		gameListener.level = level;
 		
 	    stage.addActor(level);
