@@ -38,6 +38,7 @@ public class DefManager {
 		wallDef.textureHorizontal = "data/wall_horizontal.png";
 		wallDef.textureCornerNE = "data/wall_corner_ne.png";
 		wallDef.textureStubN = "data/wall_stub_n.png";
+		wallDef.textureCornerNWE = "data/wall_corner_nwe.png";
 		addDef(wallDef);
 		
 		TerrainLayerDef csd = new TerrainLayerDef("floor",TerrainType.GROUND);
@@ -63,6 +64,8 @@ public class DefManager {
 		ComputerDef cd = new ComputerDef("comp1", 7, 7);
 		cd.fillWith(getSquare("floor"));
 		cd.makeEdgeWall(getSquare("wall"));
+		cd.makeYWall(getSquare("wall"), 2, cd.height-1, 2);
+		cd.makeYWall(getSquare("wall"), 2, cd.height-1, 4);
 		cd.place(getSquare("connection"), 0, 3).id = "con1";
 		cd.place(getSquare("connection"), cd.width-1, 3).id = "con2";
 		cd.place(getSquare("wall"), 2, 2);
