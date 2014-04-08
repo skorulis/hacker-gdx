@@ -15,20 +15,14 @@ import skorulis.hacker.def.square.TerrainLayerDef.TerrainType;
 public class DefManager {
 
 	public Map<String, NodeDef> nodes;
-	public Map<String, LevelDef> levels;
-	public Map<String, ComputerDef> computers; 
 	public Map<String, TerrainLayerDef> squares;
 	
 	public DefManager() {
 		nodes = new HashMap<String, NodeDef>();
-		levels = new HashMap<String, LevelDef>();
-		computers = new HashMap<String, ComputerDef>();
 		squares = new HashMap<String, TerrainLayerDef>();
 	
 		createSquares();
 		createNodes();
-		createComputers();
-		createLevels();
 		
 	}
 	
@@ -60,40 +54,9 @@ public class DefManager {
 		addDef(c);
 	}
 	
-	private void createComputers() {
-		ComputerDef cd = new ComputerDef("comp1", 7, 7);
-		cd.fillWith(getSquare("floor"));
-		cd.makeEdgeWall(getSquare("wall"));
-		cd.makeYWall(getSquare("wall"), 2, cd.height-1, 2);
-		cd.makeYWall(getSquare("wall"), 2, cd.height-1, 4);
-		cd.place(getSquare("connection"), 0, 3).id = "con1";
-		cd.place(getSquare("connection"), cd.width-1, 3).id = "con2";
-		cd.place(getSquare("wall"), 2, 2);
-		
-		cd.assignTextures();
-		addDef(cd);
-	}
-	
-	private void createLevels() {
-		LevelDef level = new LevelDef("l1");
-		//level.computers.add(new NodePosDef("c1", getNode("comp"), getComputer("comp1"), 50, 50));
-		NodePosDef comp2 = new NodePosDef("c2", getNode("comp"), getComputer("comp1"), 300, 200);
-		level.computers.add(new NodePosDef("c1", getNode("net"),  50, 50));
-		level.computers.add(comp2);
-		level.computers.add(new NodePosDef("c3", getNode("net"), 500, 200));
-		level.createConnection(level.findComputer("c1"), comp2, null, "con1");
-		level.createConnection(comp2,level.findComputer("c3"), "con2", null);
-		level.entryComputer = level.findComputer("c1");
-		addDef(level);
-	}
-	
 	private void addDef(BaseDef def) {
 		if(def instanceof NodeDef) {
 			nodes.put(def.name(), (NodeDef)def);
-		} else if(def instanceof LevelDef) {
-			levels.put(def.name, (LevelDef)def);
-		} else if(def instanceof ComputerDef) {
-			computers.put(def.name,(ComputerDef)def);
 		} else if(def instanceof TerrainLayerDef) {
 			squares.put(def.name, (TerrainLayerDef)def);
 		} else {
@@ -105,22 +68,6 @@ public class DefManager {
 		NodeDef def = nodes.get(name);
 		if(def == null) {
 			throw new IllegalArgumentException("No node named " + name);
-		}
-		return def;
-	}
-	
-	public LevelDef getLevel(String name) {
-		LevelDef def = levels.get(name);
-		if(def == null) {
-			throw new IllegalArgumentException("No level named " + name);
-		}
-		return def;
-	}
-	
-	public ComputerDef getComputer(String name) {
-		ComputerDef def = computers.get(name);
-		if(def == null) {
-			throw new IllegalArgumentException("No computer named " + name);
 		}
 		return def;
 	}

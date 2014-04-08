@@ -2,7 +2,9 @@ package skorulis.hacker;
 
 import java.util.List;
 
+import skorulis.hacker.computer.ComputerManager;
 import skorulis.hacker.def.DefManager;
+import skorulis.hacker.level.LevelManager;
 import skorulis.hacker.level.NetworkLevel;
 import skorulis.hacker.ui.UIManager;
 
@@ -20,6 +22,8 @@ public class HackerGame implements ApplicationListener {
 	
 	private Stage stage;
 	private DefManager defManager;
+	private ComputerManager compManager;
+	private LevelManager levelManager;
 	private NetworkLevel level;
 	private AssetManager assets;
 	private boolean loading;
@@ -29,6 +33,8 @@ public class HackerGame implements ApplicationListener {
 	@Override
 	public void create() {		
 		defManager = new DefManager();
+		compManager = new ComputerManager(defManager);
+		levelManager = new LevelManager(defManager, compManager);
 		assets = new AssetManager();
 		
 		List<String> textures = defManager.allTextures();
@@ -48,7 +54,7 @@ public class HackerGame implements ApplicationListener {
 	}
 	
 	private void startLevel() {
-		level = new NetworkLevel(defManager.getLevel("l1"),assets);
+		level = new NetworkLevel(levelManager.getLevel("l1"),assets);
 		gameListener.level = level;
 		
 	    stage.addActor(level);
