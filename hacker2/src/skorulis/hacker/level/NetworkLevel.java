@@ -133,7 +133,9 @@ public class NetworkLevel extends Group implements AvatarDelegate {
 	}
 	
 	private void exitComputer(Avatar avatar, Computer computer, ComputerSquare square, ConnectionLayer layer) {
+		computer.removeActor(avatar);
 		closeComputer(computer);
+		this.addActor(avatar);
 	}
 	
 	private void closeComputer(Computer computer) {
