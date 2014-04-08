@@ -3,7 +3,6 @@ package skorulis.hacker.level;
 import java.util.ArrayList;
 
 import skorulis.hacker.computer.Computer;
-import skorulis.hacker.computer.NetworkConnection;
 import skorulis.hacker.computer.square.ComputerSquare;
 import skorulis.hacker.def.NodeDef;
 

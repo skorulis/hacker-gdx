@@ -1,7 +1,6 @@
-package skorulis.hacker.computer;
+package skorulis.hacker.level;
 
 import skorulis.hacker.def.ConnectionDef;
-import skorulis.hacker.level.NetworkNode;
 
 public class NetworkConnection {
 
