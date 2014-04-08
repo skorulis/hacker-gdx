@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import skorulis.hacker.avatar.Avatar;
 import skorulis.hacker.avatar.AvatarDelegate;
 import skorulis.hacker.computer.Computer;
+import skorulis.hacker.computer.square.CompSquareLayer;
 import skorulis.hacker.computer.square.ComputerSquare;
-import skorulis.hacker.def.square.TerrainLayerDef.TerrainAction;
+import skorulis.hacker.def.terrain.TerrainLayerDef.TerrainAction;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
@@ -122,8 +123,8 @@ public class NetworkLevel extends Group implements AvatarDelegate {
 	}
 	
 	public void avatarDidPerformAction(Avatar avatar, Computer computer, ComputerSquare square) {
-		TerrainAction action = square.getAction();
-		if(action == TerrainAction.EXIT) {
+		CompSquareLayer layer = square.getActionLayer();
+		if(layer != null) {
 			
 		}
 	}

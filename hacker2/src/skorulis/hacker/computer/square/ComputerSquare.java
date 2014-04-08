@@ -2,9 +2,9 @@ package skorulis.hacker.computer.square;
 
 import java.util.ArrayList;
 
-import skorulis.hacker.def.square.TerrainLayerDef;
-import skorulis.hacker.def.square.TerrainLayerDef.TerrainAction;
-import skorulis.hacker.def.square.TerrainLayerDef.TerrainType;
+import skorulis.hacker.def.terrain.TerrainLayerDef;
+import skorulis.hacker.def.terrain.TerrainLayerDef.TerrainAction;
+import skorulis.hacker.def.terrain.TerrainLayerDef.TerrainType;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -70,19 +70,6 @@ public class ComputerSquare extends Actor {
 		layers.clear();
 	}
 	
-	public CompSquareLayer place(TerrainLayerDef layer) {
-		TerrainLayerDef old;
-		for(int i = 0; i < layers.size(); ++i) {
-			old = layers.get(i).def;
-			if(layer.shouldReplace(old)) {
-				CompSquareLayer newLayer = new CompSquareLayer(layer);
-				layers.set(i, newLayer);
-				return newLayer;
-			}
-		}
-		return addLayer(layer);
-	}
-	
 	public void assignTextures(ComputerSquare north,ComputerSquare east, ComputerSquare south, ComputerSquare west) {
 		for(CompSquareLayer layer : layers) {
 			layer.calculateTexture(north, east, south, west);
@@ -98,13 +85,13 @@ public class ComputerSquare extends Actor {
 		return false;
 	}
 	
-	public TerrainAction getAction() {
+	public CompSquareLayer getActionLayer() {
 		for(CompSquareLayer layer : layers) {
 			if(layer.def.action != TerrainAction.NONE) {
-				return layer.def.action;
+				return layer;
 			}
 		}
-		return TerrainAction.NONE;
+		return null;
 	}
 	
 	

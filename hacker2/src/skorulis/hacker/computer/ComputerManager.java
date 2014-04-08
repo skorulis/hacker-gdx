@@ -25,8 +25,7 @@ public class ComputerManager {
 		builder.place(def.getSquare("connection"), builder.width()-1, 3).id = "con2";
 		builder.place(def.getSquare("wall"), 2, 2);
 		
-		builder.computer.assignTextures();
-		addComputer(builder.computer);
+		addComputer(builder.build());
 	}
 	
 	public void addComputer(Computer cd) {

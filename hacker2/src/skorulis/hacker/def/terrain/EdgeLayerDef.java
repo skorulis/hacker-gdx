@@ -1,4 +1,4 @@
-package skorulis.hacker.def.square;
+package skorulis.hacker.def.terrain;
 
 import skorulis.hacker.computer.square.CompSquareTexture;
 import skorulis.hacker.computer.square.ComputerSquare;

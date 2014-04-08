@@ -7,10 +7,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import skorulis.hacker.def.square.EdgeLayerDef;
-import skorulis.hacker.def.square.TerrainLayerDef;
-import skorulis.hacker.def.square.WallLayerDef;
-import skorulis.hacker.def.square.TerrainLayerDef.TerrainType;
+import skorulis.hacker.def.terrain.EdgeLayerDef;
+import skorulis.hacker.def.terrain.TerrainLayerDef;
+import skorulis.hacker.def.terrain.WallLayerDef;
+import skorulis.hacker.def.terrain.TerrainLayerDef.TerrainType;
 
 public class DefManager {
 
