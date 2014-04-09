@@ -30,8 +30,7 @@ public class GameEventListener implements GestureListener{
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
 		// System.out.println("pan " + deltaX + "," + deltaY);
-		camera.translation.x += deltaX;
-		camera.translation.y -= deltaY;
+		camera.panned(deltaX, deltaY);
 		return false;
 	}
 
@@ -69,6 +68,7 @@ public class GameEventListener implements GestureListener{
 		} else {
 			level.networkTap(x, y);
 		}
+		camera.tapped();
 		
 		return false;
 	}
