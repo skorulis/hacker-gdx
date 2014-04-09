@@ -1,12 +1,18 @@
 package skorulis.hacker.level;
 
+import skorulis.hacker.computer.Computer;
+import skorulis.hacker.computer.square.ComputerSquare;
+
 
 public class NetworkConnection {
 
 	public NetworkNode node1;
 	public NetworkNode node2;
-	public String squareId1;
-	public String squareId2;
+	private String squareId1;
+	private String squareId2;
+	
+	public ComputerSquare square1;
+	public ComputerSquare square2;
 	
 	public NetworkConnection(NetworkNode node1, NetworkNode node2, String square1, String square2) {
 		this.node1 = node1;
@@ -34,6 +40,15 @@ public class NetworkConnection {
 		} else {
 			return squareId2;
 		}
+	}
+	
+	public boolean matches(Computer computer, String squareId) {
+		if(node1.computer == computer && squareId.equals(squareId1)) {
+			return true;
+		} else if(node2.computer == computer && squareId.equals(squareId2)) {
+			return true;
+		}
+		return false;
 	}
 	
 	

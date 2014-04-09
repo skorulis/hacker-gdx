@@ -59,7 +59,6 @@ public class HackerGame implements ApplicationListener {
 		gameListener.level = level;
 		
 	    stage.addActor(level);
-	    level.start();
 	}
 
 	@Override

@@ -133,9 +133,11 @@ public class NetworkLevel extends Group implements AvatarDelegate {
 	}
 	
 	private void exitComputer(Avatar avatar, Computer computer, ComputerSquare square, ConnectionLayer layer) {
+		NetworkConnection connection = findConnection(computer, layer.id);
 		computer.removeActor(avatar);
 		closeComputer(computer);
 		this.addActor(avatar);
+		avatar.travelAlong(connection);
 	}
 	
 	private void closeComputer(Computer computer) {
@@ -171,6 +173,15 @@ public class NetworkLevel extends Group implements AvatarDelegate {
 	public NetworkConnection findConnection(NetworkNode node1, NetworkNode node2) {
 		for(NetworkConnection con : connections) {
 			if(con.hasNodes(node1, node2)) {
+				return con;
+			}
+		}
+		return null;
+	}
+	
+	public NetworkConnection findConnection(Computer computer, String squareId) {
+		for(NetworkConnection con : connections) {
+			if(con.matches(computer, squareId)) {
 				return con;
 			}
 		}
