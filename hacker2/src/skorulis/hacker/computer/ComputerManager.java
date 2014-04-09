@@ -1,7 +1,6 @@
 package skorulis.hacker.computer;
 
 import java.util.HashMap;
-import skorulis.hacker.computer.square.layer.CompSquareLayer;
 import skorulis.hacker.def.DefManager;
 
 public class ComputerManager {
