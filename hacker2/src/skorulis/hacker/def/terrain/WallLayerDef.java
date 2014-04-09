@@ -44,11 +44,11 @@ public class WallLayerDef extends TerrainLayerDef {
 		} else if(bitMask == 1) { //0001
 			return new CompSquareTexture(textureStubN,0);
 		} else if(bitMask == 2) { //0010
-			return new CompSquareTexture(textureStubN,90);
+			return new CompSquareTexture(textureStubN,270);
 		} else if(bitMask == 4) { //0100
 			return new CompSquareTexture(textureStubN,180);
 		} else if(bitMask == 8) { //1000
-			return new CompSquareTexture(textureStubN,270);
+			return new CompSquareTexture(textureStubN,90);
 		} else if(bitMask == 11) { //1011
 			return new CompSquareTexture(textureCornerNWE,0);
 		} else if(bitMask == 7) { //0111

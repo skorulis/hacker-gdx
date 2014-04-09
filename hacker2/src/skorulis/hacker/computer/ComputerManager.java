@@ -15,6 +15,11 @@ public class ComputerManager {
 	}
 	
 	private void createComputers() {
+		createComputer1();
+		createComputer2();
+	}
+	
+	private void createComputer1() {
 		ComputerBuilder builder = new ComputerBuilder(new Computer("comp1", 7, 7));
 		builder.fillWith(def.getSquare("floor"));
 		builder.makeEdgeWall(def.getSquare("wall"));
@@ -23,7 +28,14 @@ public class ComputerManager {
 		builder.place(def.getSquare("connection"), 0, 3).id = "con1";
 		builder.place(def.getSquare("connection"), builder.width()-1, 3).id = "con2";
 		builder.place(def.getSquare("wall"), 2, 2);
-		
+		addComputer(builder.build());
+	}
+	
+	private void createComputer2() {
+		ComputerBuilder builder = new ComputerBuilder(new Computer("comp2", 15, 15));
+		builder.fillWith(def.getSquare("floor"));
+		builder.makeEdgeWall(def.getSquare("wall"));
+		builder.place(def.getSquare("connection"), builder.width()/2, 0).id = "con1";
 		addComputer(builder.build());
 	}
 	

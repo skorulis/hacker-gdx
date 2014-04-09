@@ -67,7 +67,7 @@ public class Avatar extends Actor {
 				destinationSquare);
 		currentPath = finder.generatePath();
 		if (movement == null) {
-			movement = currentPath.getMovement(speed / 2);
+			movement = currentPath.getMovement(speed);
 		}
 	}
 
@@ -99,9 +99,9 @@ public class Avatar extends Actor {
 				currentPath = null;
 			} else {
 				if (movement.destSquare == currentPath.nextNode()) {
-					movement = currentPath.next(speed / 2);
+					movement = currentPath.next(speed);
 				} else {
-					movement = currentPath.getMovement(speed / 2);
+					movement = currentPath.getMovement(speed);
 				}
 
 			}
