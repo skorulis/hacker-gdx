@@ -31,7 +31,7 @@ public class NetworkLevel extends Group implements AvatarDelegate {
 	private ArrayList<Avatar> avatars;
 	private Avatar playerAvatar;
 	
-	public Vector3 translation;
+	
 	private Computer openComputer;
 	
 	public NetworkLevel(String name) {
@@ -41,7 +41,7 @@ public class NetworkLevel extends Group implements AvatarDelegate {
 		
 		shapeRenderer = new ShapeRenderer();
 		
-		translation = new Vector3();
+		
 		avatars = new ArrayList<Avatar>();
 	}
 	
@@ -87,10 +87,9 @@ public class NetworkLevel extends Group implements AvatarDelegate {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		Matrix4 transform = new Matrix4();
-		transform.translate(translation);
+		
 		batch.end();
-		shapeRenderer.setTransformMatrix(transform);
+		shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.setColor(Color.RED);
@@ -100,7 +99,6 @@ public class NetworkLevel extends Group implements AvatarDelegate {
 		shapeRenderer.end();
 
 		batch.begin();
-		batch.setTransformMatrix(transform);
 		drawChildren(batch, parentAlpha);
 	}
 

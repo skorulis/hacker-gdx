@@ -1,5 +1,6 @@
 package skorulis.hacker;
 
+import skorulis.hacker.camera.TrackingCamera;
 import skorulis.hacker.level.NetworkLevel;
 
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 public class GameEventListener implements GestureListener{
 
 	public NetworkLevel level;
+	public TrackingCamera camera;
 	
 	public GameEventListener() {
 		
@@ -28,8 +30,8 @@ public class GameEventListener implements GestureListener{
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
 		// System.out.println("pan " + deltaX + "," + deltaY);
-		level.translation.x += deltaX;
-		level.translation.y -= deltaY;
+		camera.translation.x += deltaX;
+		camera.translation.y -= deltaY;
 		return false;
 	}
 
@@ -59,9 +61,9 @@ public class GameEventListener implements GestureListener{
 
 	@Override
 	public boolean tap(float x, float y, int count, int button) {
-		x -= level.translation.x;
-		y += level.translation.y;
-		y = level.getStage().getHeight() - y;
+		x -= camera.translation.x;
+		y += camera.translation.y;
+		y = camera.getStage().getHeight() - y;
 		if(level.openComputer() != null) {
 			level.computerTap(x, y);
 		} else {

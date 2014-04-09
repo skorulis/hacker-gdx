@@ -2,6 +2,7 @@ package skorulis.hacker;
 
 import java.util.List;
 
+import skorulis.hacker.camera.TrackingCamera;
 import skorulis.hacker.computer.ComputerManager;
 import skorulis.hacker.def.DefManager;
 import skorulis.hacker.level.LevelManager;
@@ -29,6 +30,7 @@ public class HackerGame implements ApplicationListener {
 	private boolean loading;
 	private UIManager ui;
 	private GameEventListener gameListener;
+	private TrackingCamera camera;
 	
 	@Override
 	public void create() {		
@@ -56,9 +58,12 @@ public class HackerGame implements ApplicationListener {
 		level = levelManager.getLevel("l1");
 		level.loadTextures(assets);
 		level.start();
-		gameListener.level = level;
 		
-	    stage.addActor(level);
+		camera = new TrackingCamera(level, level.playerAvatar());
+		gameListener.level = level;
+		gameListener.camera = camera;
+		
+	    stage.addActor(camera);
 	}
 
 	@Override
